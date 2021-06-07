@@ -16,6 +16,10 @@
     "importHelpers": true,
     "target": "es2017",
     "module": "es2020",
+    "paths": {
+      "@clickup/core": ["./projects/core/index"],
+      "@clickup/core/*": ["./projects/core/*"]
+    },
     "lib": [
       "es2018",
       "dom"
