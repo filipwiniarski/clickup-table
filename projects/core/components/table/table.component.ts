@@ -1,10 +1,15 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core'
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core'
 
 @Component({
-  selector: 'app-table',
+  selector: 'cu-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableComponent {
+  @Input()
+  columns!: ReadonlyArray<string>;
+
+  @Input()
+  data: ReadonlyArray<any> | undefined;
 }

@@ -6,4 +6,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  columns = [
+    'firstName',
+    'lastName',
+    'country'
+  ]
+
+  data = [
+    {
+      firstName: 'Filip',
+      lastName: 'Winiarski',
+      country: 'Poland',
+      longField: 'Long long long long long long long long long'
+    }
+  ]
 }

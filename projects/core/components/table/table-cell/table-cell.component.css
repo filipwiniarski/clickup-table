@@ -1,0 +1,9 @@
+:host {
+  display: block;
+  border: 1px solid gray;
+  padding: 5px;
+}
+
+:host.head-cell {
+  background: #F0F0F0;
+}

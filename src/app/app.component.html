@@ -1,2 +1,16 @@
-Hehe
-<app-table></app-table>
+<cu-table [columns]="columns" [data]="data">
+  <cu-table-head>
+    <cu-table-cell>First Name</cu-table-cell>
+    <cu-table-cell>Last Name</cu-table-cell>
+    <cu-table-cell>Country</cu-table-cell>
+    <cu-table-cell>Long Field</cu-table-cell>
+  </cu-table-head>
+  <cu-table-body>
+    <cu-table-row *ngFor="let item of data">
+      <cu-table-cell>{{ item.firstName }}</cu-table-cell>
+      <cu-table-cell>{{ item.lastName }}</cu-table-cell>
+      <cu-table-cell>{{ item.country }}</cu-table-cell>
+      <cu-table-cell>{{ item.longField }}</cu-table-cell>
+    </cu-table-row>
+  </cu-table-body>
+</cu-table>
