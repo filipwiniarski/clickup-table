@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { TableModule } from '@clickup/core/components/table'
+import {DragDropModule} from '@angular/cdk/drag-drop'
 
 @NgModule({
   declarations: [
@@ -10,6 +11,7 @@ import { TableModule } from '@clickup/core/components/table'
   ],
   imports: [
     BrowserModule,
+    DragDropModule,
     TableModule
   ],
   providers: [],
