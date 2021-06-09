@@ -14,7 +14,7 @@
       <cu-table-cell head>Long Field</cu-table-cell>
     </cu-table-row>
   </cu-table-head>
-  <cu-table-body [data]="data" cdkDropList cdkDropListOrientation="vertical" (cdkDropListDropped)="drop($event)">
+  <cu-table-body [data]="data" cdkDropList cdkDropListOrientation="vertical" (cdkDropListDropped)="drop($event)" cdkDropListLockAxis="y">
     <cu-table-row *cuTableData="let item of data" cdkDrag>
       <cu-table-cell>
         <img src="assets/drag_indicator_black_24dp.svg" class="handle" cdkDragHandle/>
