@@ -56,8 +56,7 @@ export class TableCellHeaderComponent<T> extends TableCellComponent<T> implement
       filter((column) => column !== this.column),
       tap(() => changeDetectorRef.markForCheck())
     ).subscribe(() => {
-      this.updateWidth();
-      this.setResizeBarPosition();
+      this.onResizeDrag(this.elementRef.nativeElement.getBoundingClientRect().width);
     });
 
     tableSortService.sort$.pipe(
@@ -77,11 +76,6 @@ export class TableCellHeaderComponent<T> extends TableCellComponent<T> implement
 
   ngAfterContentInit() {
     this.width = this.elementRef.nativeElement.clientWidth;
-    /** Wait 1 tick for the table to switch to px */
-    timer(1).subscribe(() => {
-      this.setResizeBarPosition();
-      this.changeDetectorRef.detectChanges();
-    })
   }
 
   sortData() {
@@ -94,19 +88,8 @@ export class TableCellHeaderComponent<T> extends TableCellComponent<T> implement
     });
   }
 
-  onResizeDrag(width?: number) {
-    this.updateWidth(width);
-    this.setResizeBarPosition();
+  onResizeDrag(width: number) {
+    this.width = width;
     this.table.tableResize$.next(this.column);
-  }
-
-  updateWidth(width?: number) {
-    this.width = width ?? this.elementRef.nativeElement.getBoundingClientRect().width;
-  }
-
-  setResizeBarPosition(): void {
-    const {right} = this.elementRef.nativeElement.getBoundingClientRect();
-    const {x} = this.table.elementRef.nativeElement.getBoundingClientRect();
-    this.resizeBarPosition = right - x;
   }
 }

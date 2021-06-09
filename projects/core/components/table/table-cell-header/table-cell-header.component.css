@@ -2,6 +2,7 @@
   display: table-cell;
   padding: 15px 10px;
   background: #F0F0F0;
+  position: relative;
 }
 
 .resize-bar {
@@ -9,8 +10,8 @@
   height: 100%;
   width: 8px;
   top: 0;
+  right: 0;
   z-index: 100;
-  left: -4px;
 }
 
 .resize-bar:hover, .resize-bar:active {
@@ -26,12 +27,11 @@
 .resize-bar-line {
   position: absolute;
   width: 1px;
-  left: 3px;
+  right: 0;
   top: 0;
   height: 100%;
   background: rgba(0, 0, 0, 0.12);
   transition: 150ms background, 150ms box-shadow;
-  z-index: 100;
 }
 
 .cu-table-cell-content {
