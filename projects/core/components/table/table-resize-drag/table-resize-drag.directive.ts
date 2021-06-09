@@ -19,7 +19,7 @@ export class TableResizeDragDirective<T> {
       return fromEvent(this.documentRef, 'mousemove').pipe(
         distinctUntilChanged(),
         map(event => event as MouseEvent),
-        map(({ clientX }) => width + clientX - right - 20),
+        map(({ clientX }) => width + clientX - right),
         takeUntil(fromEvent(this.documentRef, 'mouseup')),
       );
     }),

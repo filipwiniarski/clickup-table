@@ -50,10 +50,16 @@ export class TableCellHeaderComponent<T> extends TableCellComponent<T> implement
     @Inject(DestroyService) readonly destroy$: DestroyService,
   ) {
     super(changeDetectorRef);
+
     table.tableResize$.pipe(
       startWith(null),
       tap(() => changeDetectorRef.markForCheck())
-    ).subscribe(() => this.setResizeBarPosition());
+    ).subscribe((column) => {
+      this.setResizeBarPosition();
+      if (column !== this.column) {
+        this.updateWidth();
+      }
+    });
 
     tableSortService.sort$.pipe(
       takeUntil(this.destroy$),
@@ -89,15 +95,18 @@ export class TableCellHeaderComponent<T> extends TableCellComponent<T> implement
     });
   }
 
-  onResizeDrag(width: number) {
-    this.width = width;
-    this.table.tableResize$.next();
+  onResizeDrag(width?: number) {
+    this.updateWidth(width);
+    this.table.tableResize$.next(this.column);
   }
 
-  setResizeBarPosition(width?: number): void {
-    const cellX = this.elementRef.nativeElement.getBoundingClientRect().x;
+  updateWidth(width?: number) {
+    this.width = width ?? this.elementRef.nativeElement.getBoundingClientRect().width;
+  }
+
+  setResizeBarPosition(): void {
+    const cellX = this.elementRef.nativeElement.getBoundingClientRect().right;
     const tableX = this.table.elementRef.nativeElement.getBoundingClientRect().x;
-    const cellWidth = width ?? this.elementRef.nativeElement.clientWidth;
-    this.resizeBarPosition = cellX - tableX + cellWidth - 2;
+    this.resizeBarPosition = cellX - tableX;
   }
 }

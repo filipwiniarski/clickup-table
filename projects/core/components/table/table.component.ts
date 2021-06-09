@@ -26,7 +26,7 @@ export class TableComponent<T> implements OnChanges {
   @Input()
   columns!: ReadonlyArray<keyof T>;
 
-  tableResize$ = new Subject<void>();
+  tableResize$ = new Subject<keyof T>();
 
   constructor(
     @Inject(ElementRef) readonly elementRef: ElementRef,
