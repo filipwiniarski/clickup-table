@@ -3,6 +3,10 @@
   padding: 15px 10px;
   background: #F0F0F0;
   position: relative;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 12px;
+  white-space: nowrap;
 }
 
 .resize-bar {
@@ -38,7 +42,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.cu-table-cell-label {
   cursor: pointer;
+}
+
+.cu-table-cell-label:hover {
+  opacity: .7;
 }
 
 .cu-table-cell-sort-icon {

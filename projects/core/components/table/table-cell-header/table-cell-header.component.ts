@@ -55,9 +55,7 @@ export class TableCellHeaderComponent<T> extends TableCellComponent<T> implement
       startWith(null),
       filter((column) => column !== this.column),
       tap(() => changeDetectorRef.markForCheck())
-    ).subscribe(() => {
-      this.onResizeDrag(this.elementRef.nativeElement.getBoundingClientRect().width);
-    });
+    ).subscribe(() => this.setWidth());
 
     tableSortService.sort$.pipe(
       takeUntil(this.destroy$),
@@ -89,7 +87,11 @@ export class TableCellHeaderComponent<T> extends TableCellComponent<T> implement
   }
 
   onResizeDrag(width: number) {
-    this.width = width;
+    this.setWidth(width);
     this.table.tableResize$.next(this.column);
+  }
+
+  setWidth(width?: number) {
+    this.width = width ?? this.elementRef.nativeElement.getBoundingClientRect().width;
   }
 }
