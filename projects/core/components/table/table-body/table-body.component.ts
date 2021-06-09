@@ -55,7 +55,7 @@ export class TableBodyComponent<T> implements OnChanges {
   }
 
   sort(sortEvent: SortEvent<keyof T>): void {
-    if (!sortEvent.column) {
+    if (!sortEvent.mode) {
       this.results = this.data;
       return;
     }

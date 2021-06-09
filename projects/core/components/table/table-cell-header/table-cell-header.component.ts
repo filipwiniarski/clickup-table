@@ -1,19 +1,19 @@
 import {
-  AfterViewInit,
+  AfterContentInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef, forwardRef,
   HostBinding,
   Inject,
-  Input, SkipSelf,  ViewChild
+  Input, SkipSelf, ViewChild
 } from '@angular/core'
 import {TableCellComponent} from '../table-cell/table-cell.component'
 import {TableComponent} from '../table.component'
-import {finalize, map, startWith, takeUntil, tap} from 'rxjs/operators'
+import {map, startWith, takeUntil, tap} from 'rxjs/operators'
 import {SortMode, TableSortService} from '../services/table-sort.service'
 import {DestroyService} from '../services/destroy-service.service'
-import {Observable} from 'rxjs'
+import {timer} from 'rxjs'
 
 type Sort = 'string' | 'number' | 'date';
 
@@ -23,7 +23,7 @@ type Sort = 'string' | 'number' | 'date';
   styleUrls: ['./table-cell-header.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableCellHeaderComponent<T> extends TableCellComponent<T> implements AfterViewInit {
+export class TableCellHeaderComponent<T> extends TableCellComponent<T> implements AfterContentInit {
   @HostBinding('class')
   className = 'cu-table-cell cu-table-cell-header';
 
@@ -34,7 +34,7 @@ export class TableCellHeaderComponent<T> extends TableCellComponent<T> implement
   sortFn: ((a: T, b: T) => boolean) | undefined;
 
   @HostBinding('style.width.px')
-  width: number | undefined;
+  width: number | null = null;
 
   @ViewChild('resizeBar', {read: ElementRef}) readonly resizeBar: ElementRef | undefined;
 
@@ -58,7 +58,6 @@ export class TableCellHeaderComponent<T> extends TableCellComponent<T> implement
     tableSortService.sort$.pipe(
       takeUntil(this.destroy$),
       map(event => {
-        console.log(event);
         if (event.column === this.column) {
           return event.mode;
         } else {
@@ -71,9 +70,13 @@ export class TableCellHeaderComponent<T> extends TableCellComponent<T> implement
     });
   }
 
-  ngAfterViewInit() {
-    this.setResizeBarPosition();
-    this.changeDetectorRef.detectChanges();
+  ngAfterContentInit() {
+    this.width = this.elementRef.nativeElement.clientWidth;
+    /** Wait 1 tick for the table to switch to px */
+    timer(1).subscribe(() => {
+      this.setResizeBarPosition();
+      this.changeDetectorRef.detectChanges();
+    })
   }
 
   sortData() {
