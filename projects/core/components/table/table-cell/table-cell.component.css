@@ -1,9 +1,5 @@
 :host {
-  display: block;
-  border: 1px solid gray;
-  padding: 5px;
-}
-
-:host.head-cell {
-  background: #F0F0F0;
+  display: table-cell;
+  padding: 15px 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
 }

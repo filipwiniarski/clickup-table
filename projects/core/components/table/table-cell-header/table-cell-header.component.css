@@ -1,0 +1,34 @@
+:host {
+  display: table-cell;
+  padding: 15px 10px;
+  background: #F0F0F0;
+}
+
+.resize-bar {
+  position: absolute;
+  height: 100%;
+  width: 8px;
+  top: 0;
+  z-index: 100;
+}
+
+.resize-bar:hover, .resize-bar:active {
+  cursor: col-resize;
+}
+
+.resize-bar:hover .resize-bar-line, .resize-bar:active .resize-bar-line {
+  width: 2px;
+  background: #225bff;
+  box-shadow: 0 0 5px rgba(0,0,0,.25);
+}
+
+.resize-bar-line {
+  position: absolute;
+  width: 1px;
+  left: 3px;
+  top: 0;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.12);
+  transition-duration: 150ms;
+  z-index: 100;
+}

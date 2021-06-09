@@ -1,0 +1,8 @@
+<ng-content></ng-content>
+
+<button (click)="sortData()">sort</button>
+
+<div (cuTableResizeDrag)="onResizeDrag($event)" class="resize-bar" [style.left.px]="resizeBarPosition">
+  <div class="resize-bar-line"></div>
+</div>
+

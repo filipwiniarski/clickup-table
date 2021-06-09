@@ -1,7 +1,8 @@
-import {ChangeDetectionStrategy, Component, ContentChildren, Inject, QueryList} from '@angular/core'
-import {TableCellsWrapperComponent} from '../table-cells-wrapper/table-cells-wrapper.component'
-import {TableComponent} from '../table.component'
-import {TableCellComponent} from '../table-cell/table-cell.component'
+import {
+  ChangeDetectionStrategy,
+  Component,
+  HostBinding,
+} from '@angular/core'
 
 @Component({
   selector: 'cu-table-head',
@@ -9,12 +10,7 @@ import {TableCellComponent} from '../table-cell/table-cell.component'
   styleUrls: ['./table-head.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableHeadComponent extends TableCellsWrapperComponent {
-  @ContentChildren(TableCellComponent) cells: QueryList<TableCellComponent> | undefined;
-
-  constructor(
-    @Inject(TableComponent) readonly tableComponent: TableComponent
-  ) {
-    super();
-  }
+export class TableHeadComponent<T> {
+  @HostBinding('class')
+  className = 'cu-table-head';
 }
