@@ -16,7 +16,7 @@ export interface TableRowContext<T> {
 @Component({
   selector: 'cu-table-row',
   templateUrl: './table-row.component.html',
-  styleUrls: ['./table-row.component.css'],
+  styleUrls: ['./table-row.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableRowComponent<T> extends TableCellsWrapperComponent<T> {

@@ -3,7 +3,7 @@ import {ChangeDetectionStrategy, Component, HostBinding} from '@angular/core'
 @Component({
   selector: 'cu-table-pagination',
   templateUrl: './table-pagination.component.html',
-  styleUrls: ['./table-pagination.component.css'],
+  styleUrls: ['./table-pagination.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TablePaginationComponent {

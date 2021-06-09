@@ -16,7 +16,7 @@ import {DestroyService} from '../services/destroy-service.service'
 @Component({
   selector: 'cu-table-body',
   templateUrl: './table-body.component.html',
-  styleUrls: ['./table-body.component.css'],
+  styleUrls: ['./table-body.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableBodyComponent<T> implements OnChanges {

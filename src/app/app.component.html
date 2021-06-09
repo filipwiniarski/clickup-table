@@ -8,9 +8,12 @@
       <cu-table-cell head>Long Field</cu-table-cell>
     </cu-table-row>
   </cu-table-head>
-  <cu-table-body [data]="data" [draggable]="true" cdkDropList cdkDropListOrientation="vertical">
+  <cu-table-body [data]="data" cdkDropList cdkDropListOrientation="vertical" (cdkDropListDropped)="drop($event)">
     <cu-table-row *cuTableData="let item of data" cdkDrag>
-      <cu-table-cell>{{ item.id }}</cu-table-cell>
+      <cu-table-cell>
+        <img src="assets/drag_indicator_black_24dp.svg" class="handle" cdkDragHandle/>
+        {{ item.id }}
+      </cu-table-cell>
       <cu-table-cell>{{ item.firstName }}</cu-table-cell>
       <cu-table-cell>{{ item.lastName }}</cu-table-cell>
       <cu-table-cell>{{ item.country }}</cu-table-cell>

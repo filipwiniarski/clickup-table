@@ -1,6 +1,5 @@
-import {Component, ViewChildren} from '@angular/core'
+import {Component} from '@angular/core'
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop'
-import {TableCellHeaderComponent} from '@clickup/core/components/table/table-cell-header/table-cell-header.component'
 
 interface TableItem {
   id: number;
@@ -23,6 +22,10 @@ export class AppComponent {
     'country',
     'longField'
   ]
+
+  drop(event: CdkDragDrop<TableItem[]>) {
+    moveItemInArray(this.data, event.previousIndex, event.currentIndex);
+  }
 
   data: TableItem[] = [
     {

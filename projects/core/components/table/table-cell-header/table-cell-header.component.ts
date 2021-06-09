@@ -20,7 +20,7 @@ type Sort = 'string' | 'number' | 'date';
 @Component({
   selector: 'cu-table-cell[head]',
   templateUrl: './table-cell-header.component.html',
-  styleUrls: ['./table-cell-header.component.css'],
+  styleUrls: ['./table-cell-header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableCellHeaderComponent<T> extends TableCellComponent<T> implements AfterContentInit {

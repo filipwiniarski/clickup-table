@@ -1,7 +1,9 @@
 :host {
-  display: table-cell;
-  padding: 15px 10px;
-  background: #F0F0F0;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  padding: 15px 20px;
+  background: #4370ff;
   position: relative;
   text-transform: uppercase;
   font-weight: bold;

@@ -14,7 +14,7 @@ import {TableRowComponent} from '../table-row/table-row.component'
 @Component({
   selector: 'cu-table-cell:not([head])',
   templateUrl: './table-cell.component.html',
-  styleUrls: ['./table-cell.component.css'],
+  styleUrls: ['./table-cell.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableCellComponent<T> {

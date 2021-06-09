@@ -1,16 +1,12 @@
 :host {
   display: block;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0,0,15,.15);
-  background: white;
-  overflow: hidden;
+  font-size: 14px;
 }
 
 .cu-table-data {
   width: 100%;
-  display: table;
-  border-collapse: separate;
-  border-spacing: 0;
+  display: block;
   position: relative;
   user-select: none;
 }
