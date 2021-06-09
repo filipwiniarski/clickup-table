@@ -1,6 +1,7 @@
 <ng-content></ng-content>
 <ng-container *ngIf="row">
   <ng-container
+    cdkDrag
     *ngFor="let item of results; let index = index"
     [ngTemplateOutlet]="row.template"
     [ngTemplateOutletContext]="item | mapper : toContext : index"

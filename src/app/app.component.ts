@@ -16,7 +16,7 @@ interface TableItem {
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  columns: (keyof TableItem)[] = [
+  columns: ReadonlyArray<keyof TableItem> = [
     'id',
     'firstName',
     'lastName',
@@ -61,9 +61,4 @@ export class AppComponent {
       longField: 'Long long long long long long long long long'
     }
   ]
-
-  drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.columns as any, event.previousIndex, event.currentIndex);
-    console.log(this.columns);
-  }
 }

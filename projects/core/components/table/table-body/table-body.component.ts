@@ -23,6 +23,9 @@ export class TableBodyComponent<T> implements OnChanges {
   @HostBinding('class')
   className = 'cu-table-body';
 
+  @Input()
+  draggable: boolean = false;
+
   @ContentChild(forwardRef(() => TableDataDirective))
   readonly row?: TableDataDirective<T>;
 

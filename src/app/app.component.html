@@ -1,15 +1,15 @@
 <cu-table [columns]="columns">
   <cu-table-head>
-    <cu-table-row cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
-      <cu-table-cell head cdkDrag>Id</cu-table-cell>
-      <cu-table-cell head cdkDrag>First Name</cu-table-cell>
-      <cu-table-cell head cdkDrag>Last Name</cu-table-cell>
-      <cu-table-cell head cdkDrag>Country</cu-table-cell>
-      <cu-table-cell head cdkDrag>Long Field</cu-table-cell>
+    <cu-table-row>
+      <cu-table-cell head>Id</cu-table-cell>
+      <cu-table-cell head>First Name</cu-table-cell>
+      <cu-table-cell head>Last Name</cu-table-cell>
+      <cu-table-cell head>Country</cu-table-cell>
+      <cu-table-cell head>Long Field</cu-table-cell>
     </cu-table-row>
   </cu-table-head>
-  <cu-table-body [data]="data">
-    <cu-table-row *cuTableData="let item of data">
+  <cu-table-body [data]="data" [draggable]="true" cdkDropList cdkDropListOrientation="vertical">
+    <cu-table-row *cuTableData="let item of data" cdkDrag>
       <cu-table-cell>{{ item.id }}</cu-table-cell>
       <cu-table-cell>{{ item.firstName }}</cu-table-cell>
       <cu-table-cell>{{ item.lastName }}</cu-table-cell>

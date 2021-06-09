@@ -10,6 +10,7 @@ import { TableCellHeaderComponent } from './table-cell-header/table-cell-header.
 import { TableResizeDragDirective } from './table-resize-drag/table-resize-drag.directive';
 import { TableDataDirective } from './table-data/table-data.directive';
 import { MapperPipe } from './pipes/mapper.pipe';
+import {DragDropModule} from '@angular/cdk/drag-drop'
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { MapperPipe } from './pipes/mapper.pipe';
     MapperPipe,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    DragDropModule
   ],
   exports: [
     TableComponent,

@@ -1,2 +1,3 @@
 > Project, library init, tree-shaking config: 1h
-> 08.06 - 40min
+> 08.06 - 1h 40min
+> 09.06 - 7h
