@@ -9,9 +9,8 @@ import {
   SimpleChanges
 } from '@angular/core'
 import {Subject} from 'rxjs'
-import {SortEvent, sortMethodMap, TableSortService} from './services/table-sort.service'
+import {TableSortService} from './services/table-sort.service'
 import {DestroyService} from './services/destroy-service.service'
-import {finalize, takeUntil} from 'rxjs/operators'
 
 @Component({
   selector: 'cu-table',

@@ -10,7 +10,7 @@ import {
 import {TableComponent} from '../table.component'
 import {TableDataDirective} from '../table-data/table-data.directive'
 import {SortEvent, sortMethodMap, TableSortService} from '../services/table-sort.service'
-import {takeUntil} from 'rxjs/operators'
+import {finalize, takeUntil, tap} from 'rxjs/operators'
 import {DestroyService} from '../services/destroy-service.service'
 
 @Component({
@@ -39,11 +39,11 @@ export class TableBodyComponent<T> implements OnChanges {
     @Inject(ChangeDetectorRef) readonly changeDetectorRef: ChangeDetectorRef,
     @Inject(DestroyService) readonly destroy$: DestroyService,
   ) {
-    tableSortService.sortEvent$.pipe(
+    tableSortService.sort$?.pipe(
       takeUntil(destroy$),
+      tap(() => changeDetectorRef.markForCheck())
     ).subscribe(event => {
       this.sort(event);
-      changeDetectorRef.detectChanges();
     })
   }
 

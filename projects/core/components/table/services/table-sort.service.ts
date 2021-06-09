@@ -1,6 +1,6 @@
 import {Inject, Injectable} from '@angular/core'
-import {Observable, Subject} from 'rxjs'
-import {filter, map, scan} from 'rxjs/operators'
+import {BehaviorSubject, Observable, Subject} from 'rxjs'
+import {filter, map, scan, tap} from 'rxjs/operators'
 
 const sortString = (a: string, b: string) => ('' + a).localeCompare(b);
 
@@ -21,49 +21,10 @@ export type SortEvent<T> = {
   mode: SortMode;
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class TableSortService<T> {
-  sort$ = new Subject<keyof T | null>();
-
-  sortEvent$: Observable<SortEvent<keyof T>>
-
-  constructor(
-  ) {
-    this.sortEvent$ = this.sort$.pipe(
-      scan((acc: (keyof T | null)[], column) => {
-        acc.push(column);
-        return acc.slice(-3);
-      }, []),
-      filter(([e1, e2, e3]) => {
-        if (e1 === e2 && e2 === e3) {
-          this.sort$.next(null);
-          return false;
-        }
-        return true;
-      }),
-      map(events => {
-        const column = events[events.length - 1];
-        const [, e2, e3] = events;
-        if (!column) {
-          return {
-            column: null,
-            mode: null
-          }
-        }
-        if (events.length === 1 || (e2 === null && e3 === column)) {
-          return {
-            column,
-            mode: 'asc'
-          }
-        }
-        return {
-          column,
-          mode: 'desc'
-        }
-      }),
-      map(event => event as SortEvent<keyof T>)
-    )
-  }
+  sort$ = new BehaviorSubject<SortEvent<keyof T>>({
+    column: null,
+    mode: null,
+  });
 }

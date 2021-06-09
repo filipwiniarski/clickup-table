@@ -14,7 +14,7 @@ interface TableItem {
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  columns: (keyof TableItem)[] = [
+  columns: ReadonlyArray<keyof TableItem> = [
     'id',
     'firstName',
     'lastName',

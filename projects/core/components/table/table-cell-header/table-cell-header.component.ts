@@ -4,15 +4,16 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef, forwardRef,
-  HostBinding, HostListener,
+  HostBinding,
   Inject,
-  Input, OnChanges, Optional, SimpleChanges, SkipSelf, TemplateRef, ViewChild
+  Input, SkipSelf,  ViewChild
 } from '@angular/core'
 import {TableCellComponent} from '../table-cell/table-cell.component'
 import {TableComponent} from '../table.component'
-import {fromEvent} from 'rxjs'
-import {delay, startWith} from 'rxjs/operators'
-import {TableSortService} from '../services/table-sort.service'
+import {finalize, map, startWith, takeUntil, tap} from 'rxjs/operators'
+import {SortMode, TableSortService} from '../services/table-sort.service'
+import {DestroyService} from '../services/destroy-service.service'
+import {Observable} from 'rxjs'
 
 type Sort = 'string' | 'number' | 'date';
 
@@ -39,16 +40,35 @@ export class TableCellHeaderComponent<T> extends TableCellComponent<T> implement
 
   resizeBarPosition: number | undefined;
 
+  sortState: SortMode = null;
+
   constructor(
     @Inject(ChangeDetectorRef) readonly changeDetectorRef: ChangeDetectorRef,
     @Inject(ElementRef) readonly elementRef: ElementRef,
     @SkipSelf() @Inject(forwardRef(() => TableComponent)) readonly table: TableComponent<T>,
     @SkipSelf() @Inject(forwardRef(() => TableSortService)) readonly tableSortService: TableSortService<T>,
+    @Inject(DestroyService) readonly destroy$: DestroyService,
   ) {
     super(changeDetectorRef);
     table.tableResize$.pipe(
       startWith(null),
+      tap(() => changeDetectorRef.markForCheck())
     ).subscribe(() => this.setResizeBarPosition());
+
+    tableSortService.sort$.pipe(
+      takeUntil(this.destroy$),
+      map(event => {
+        console.log(event);
+        if (event.column === this.column) {
+          return event.mode;
+        } else {
+          return null;
+        }
+      }),
+      tap(() => changeDetectorRef.markForCheck())
+    ).subscribe(mode => {
+      this.sortState = mode;
+    });
   }
 
   ngAfterViewInit() {
@@ -57,7 +77,13 @@ export class TableCellHeaderComponent<T> extends TableCellComponent<T> implement
   }
 
   sortData() {
-    this.tableSortService.sort$.next(this.column);
+    this.tableSortService.sort$.next({
+      column: this.column,
+      mode: this.sortState
+        ? this.sortState === 'asc'
+          ? 'desc' : null
+        : 'asc'
+    });
   }
 
   onResizeDrag(width: number) {
@@ -70,6 +96,5 @@ export class TableCellHeaderComponent<T> extends TableCellComponent<T> implement
     const tableX = this.table.elementRef.nativeElement.getBoundingClientRect().x;
     const cellWidth = width ?? this.elementRef.nativeElement.clientWidth;
     this.resizeBarPosition = cellX - tableX + cellWidth - 2;
-    this.changeDetectorRef.markForCheck();
   }
 }

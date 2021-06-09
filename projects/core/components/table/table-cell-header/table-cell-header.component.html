@@ -1,6 +1,13 @@
-<ng-content></ng-content>
+<div class="cu-table-cell-content">
+  <div (click)="sortData()">
+    <ng-content></ng-content>
+    <ng-container *ngIf="sortState">
+      <img class="cu-table-cell-sort-icon" [class.rotated]="sortState === 'desc'" src="./assets/arrow.svg"/>
+    </ng-container>
+  </div>
+  <img class="cu-table-cell-drag-icon" src="./assets/drag_indicator_black_24dp.svg"/>
+</div>
 
-<button (click)="sortData()">sort</button>
 
 <div (cuTableResizeDrag)="onResizeDrag($event)" class="resize-bar" [style.left.px]="resizeBarPosition">
   <div class="resize-bar-line"></div>

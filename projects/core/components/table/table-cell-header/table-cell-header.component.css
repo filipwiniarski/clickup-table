@@ -32,3 +32,29 @@
   transition-duration: 150ms;
   z-index: 100;
 }
+
+.cu-table-cell-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.cu-table-cell-sort-icon {
+  height: 11px;
+  transform: rotateZ(90deg);
+  transition: 100ms;
+  margin-left: 10px;
+  display: inline-block;
+  opacity: .4;
+}
+
+.cu-table-cell-sort-icon.rotated {
+  transform: rotateZ(90deg) rotateY(180deg);
+}
+
+.cu-table-cell-drag-icon {
+  height: 14px;
+  opacity: .4;
+  cursor: grab;
+}
