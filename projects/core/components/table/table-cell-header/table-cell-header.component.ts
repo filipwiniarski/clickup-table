@@ -10,7 +10,7 @@ import {
 } from '@angular/core'
 import {TableCellComponent} from '../table-cell/table-cell.component'
 import {TableComponent} from '../table.component'
-import {map, startWith, takeUntil, tap} from 'rxjs/operators'
+import {filter, map, startWith, takeUntil, tap} from 'rxjs/operators'
 import {SortMode, TableSortService} from '../services/table-sort.service'
 import {DestroyService} from '../services/destroy-service.service'
 import {timer} from 'rxjs'
@@ -53,12 +53,11 @@ export class TableCellHeaderComponent<T> extends TableCellComponent<T> implement
 
     table.tableResize$.pipe(
       startWith(null),
+      filter((column) => column !== this.column),
       tap(() => changeDetectorRef.markForCheck())
-    ).subscribe((column) => {
+    ).subscribe(() => {
+      this.updateWidth();
       this.setResizeBarPosition();
-      if (column !== this.column) {
-        this.updateWidth();
-      }
     });
 
     tableSortService.sort$.pipe(
@@ -97,6 +96,7 @@ export class TableCellHeaderComponent<T> extends TableCellComponent<T> implement
 
   onResizeDrag(width?: number) {
     this.updateWidth(width);
+    this.setResizeBarPosition();
     this.table.tableResize$.next(this.column);
   }
 
@@ -105,8 +105,8 @@ export class TableCellHeaderComponent<T> extends TableCellComponent<T> implement
   }
 
   setResizeBarPosition(): void {
-    const cellX = this.elementRef.nativeElement.getBoundingClientRect().right;
-    const tableX = this.table.elementRef.nativeElement.getBoundingClientRect().x;
-    this.resizeBarPosition = cellX - tableX;
+    const {right} = this.elementRef.nativeElement.getBoundingClientRect();
+    const {x} = this.table.elementRef.nativeElement.getBoundingClientRect();
+    this.resizeBarPosition = right - x;
   }
 }

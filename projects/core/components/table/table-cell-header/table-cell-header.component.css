@@ -10,6 +10,7 @@
   width: 8px;
   top: 0;
   z-index: 100;
+  left: -4px;
 }
 
 .resize-bar:hover, .resize-bar:active {
@@ -29,7 +30,7 @@
   top: 0;
   height: 100%;
   background: rgba(0, 0, 0, 0.12);
-  transition-duration: 150ms;
+  transition: 150ms background, 150ms box-shadow;
   z-index: 100;
 }
 
@@ -43,7 +44,7 @@
 .cu-table-cell-sort-icon {
   height: 11px;
   transform: rotateZ(90deg);
-  transition: 100ms;
+  transition: 150ms transform;
   margin-left: 10px;
   display: inline-block;
   opacity: .4;

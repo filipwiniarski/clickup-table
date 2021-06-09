@@ -9,7 +9,7 @@
 </div>
 
 
-<div (cuTableResizeDrag)="onResizeDrag($event)" class="resize-bar" [style.left.px]="resizeBarPosition">
+<div (cuTableResizeDrag)="onResizeDrag($event)" class="resize-bar" [style.transform]="'translateX(' + resizeBarPosition + 'px)'">
   <div class="resize-bar-line"></div>
 </div>
 
