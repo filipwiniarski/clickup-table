@@ -48,10 +48,7 @@ export class TableBodyComponent<T> implements OnChanges {
     tableSortService.sort$?.pipe(
       takeUntil(destroy$),
       tap(() => changeDetectorRef.markForCheck())
-    ).subscribe(event => {
-      console.log('B');
-      this.sort(event);
-    })
+    ).subscribe(event => this.sort(event))
 
     dropList?.dropped.pipe(
       takeUntil(destroy$),
@@ -60,7 +57,6 @@ export class TableBodyComponent<T> implements OnChanges {
   }
 
   ngOnChanges(simpleChanges: SimpleChanges): void {
-    console.log('C');
     if (simpleChanges.data.currentValue) {
       this.results = simpleChanges.data.currentValue;
     }
@@ -68,7 +64,6 @@ export class TableBodyComponent<T> implements OnChanges {
   }
 
   sort(sortEvent: SortEvent<keyof T>): void {
-    console.log('???');
     if (!sortEvent.mode) {
       this.results = this.data;
       return;
