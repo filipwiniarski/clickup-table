@@ -24,7 +24,7 @@ import {DestroyService} from './services/destroy-service.service'
 })
 export class TableComponent<T> implements OnChanges {
   @Input()
-  columns!: ReadonlyArray<keyof T>;
+  columns!: ReadonlyArray<keyof T | string>;
 
   tableResize$ = new Subject<keyof T>();
 

@@ -2,16 +2,18 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  ContentChild,
+  ContentChild, EventEmitter,
   forwardRef,
   HostBinding,
-  Inject, Input, OnChanges, SimpleChanges
+  Inject, Input, OnChanges, Optional, Output, SimpleChanges
 } from '@angular/core'
 import {TableComponent} from '../table.component'
 import {TableDataDirective} from '../table-data/table-data.directive'
 import {SortEvent, sortMethodMap, TableSortService} from '../services/table-sort.service'
 import {finalize, takeUntil, tap} from 'rxjs/operators'
 import {DestroyService} from '../services/destroy-service.service'
+import {CdkDragDrop} from '@angular/cdk/drag-drop/drag-events'
+import {CdkDrag, CdkDropList, DragDropRegistry} from '@angular/cdk/drag-drop'
 
 @Component({
   selector: 'cu-table-body',
@@ -41,16 +43,24 @@ export class TableBodyComponent<T> implements OnChanges {
     @Inject(TableSortService) readonly tableSortService: TableSortService<T>,
     @Inject(ChangeDetectorRef) readonly changeDetectorRef: ChangeDetectorRef,
     @Inject(DestroyService) readonly destroy$: DestroyService,
+    @Optional() @Inject(CdkDropList) readonly dropList: CdkDropList
   ) {
     tableSortService.sort$?.pipe(
       takeUntil(destroy$),
       tap(() => changeDetectorRef.markForCheck())
     ).subscribe(event => {
+      console.log('B');
       this.sort(event);
     })
+
+    dropList?.dropped.pipe(
+      takeUntil(destroy$),
+      tap(() => changeDetectorRef.markForCheck())
+    ).subscribe(event => this.moveElement(this.results as ReadonlyArray<T>, event.previousIndex, event.currentIndex))
   }
 
   ngOnChanges(simpleChanges: SimpleChanges): void {
+    console.log('C');
     if (simpleChanges.data.currentValue) {
       this.results = simpleChanges.data.currentValue;
     }
@@ -58,6 +68,7 @@ export class TableBodyComponent<T> implements OnChanges {
   }
 
   sort(sortEvent: SortEvent<keyof T>): void {
+    console.log('???');
     if (!sortEvent.mode) {
       this.results = this.data;
       return;
@@ -71,5 +82,13 @@ export class TableBodyComponent<T> implements OnChanges {
       }
       return sortMethod(bValue, aValue);
     })
+  }
+
+  moveElement(list: ReadonlyArray<T>, from: number, to: number) {
+      const elements = [...list] as any[];
+      const element = elements[from];
+      elements.splice(from, 1);
+      elements.splice(to, 0, element);
+      this.results = elements;
   }
 }
