@@ -10,7 +10,7 @@ export interface DataContext<T> {
 })
 export class TableDataDirective<T> {
   @Input()
-  cuTableDataOf: readonly T[] = [];
+  cuTableDataOf: T[] | undefined = [];
 
   constructor(@Inject(TemplateRef) readonly template: TemplateRef<DataContext<T>>) {}
 

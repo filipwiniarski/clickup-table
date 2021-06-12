@@ -8,30 +8,33 @@
 <cu-table [columns]="columns">
   <cu-table-head>
     <cu-table-row>
-      <cu-table-cell head>Id</cu-table-cell>
-      <cu-table-cell head>First Name</cu-table-cell>
-      <cu-table-cell head>Last Name</cu-table-cell>
-      <cu-table-cell head>Country</cu-table-cell>
-      <cu-table-cell head>Long Field</cu-table-cell>
+      <cu-table-cell head>Name</cu-table-cell>
+      <cu-table-cell head>Logo</cu-table-cell>
+      <cu-table-cell head>Trips</cu-table-cell>
     </cu-table-row>
   </cu-table-head>
-  <cu-table-body [data]="data"
+  <cu-table-body [data]="passengers"
+                 [loading]="!passengers"
                  cdkDropList
                  cdkDropListOrientation="vertical"
                  cdkDropListLockAxis="y"
-                 (cdkDropListDropped)="drop($event)">
-    <cu-table-row *cuTableData="let item of data" cdkDrag>
+                 (cdkDropListDropped)="drop($event, passengers)">
+    <cu-table-row *cuTableData="let item of passengers" cdkDrag>
       <cu-table-cell>
         <img src="assets/drag_indicator_black_24dp.svg"
              alt="Hello"
              class="handle"
              cdkDragHandle/>
-        {{ item.id }}
+        {{ item.name }}
       </cu-table-cell>
-      <cu-table-cell>{{ item.firstName }}</cu-table-cell>
-      <cu-table-cell>{{ item.lastName }}</cu-table-cell>
-      <cu-table-cell>{{ item.country }}</cu-table-cell>
-      <cu-table-cell>{{ item.longField }}</cu-table-cell>
+      <cu-table-cell>
+        <img height="16" [src]="item.logo"/>
+      </cu-table-cell>
+      <cu-table-cell>{{ item.trips }}</cu-table-cell>
     </cu-table-row>
   </cu-table-body>
 </cu-table>
+<cu-table-pagination [total]="total"
+                     (sizeChange)="onSizeChange($event)"
+                     (pageChange)="onPageChange($event)">
+</cu-table-pagination>

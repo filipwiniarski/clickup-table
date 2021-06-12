@@ -36,6 +36,10 @@ export class TableBodyComponent<T> implements OnChanges {
   @Input()
   data: ReadonlyArray<T> | undefined;
 
+  @Input()
+  @HostBinding('class.cu-table-loading')
+  loading: boolean | undefined;
+
   results: ReadonlyArray<T> | undefined;
 
   constructor(

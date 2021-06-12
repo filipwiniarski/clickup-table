@@ -6,3 +6,10 @@
   user-select: all;
   font-size: 14px;
 }
+
+.cu-table-cell-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+

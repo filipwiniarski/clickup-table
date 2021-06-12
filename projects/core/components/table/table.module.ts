@@ -11,6 +11,7 @@ import { TableResizeDragDirective } from './table-resize-drag/table-resize-drag.
 import { TableDataDirective } from './table-data/table-data.directive';
 import { MapperPipe } from './pipes/mapper.pipe';
 import {DragDropModule} from '@angular/cdk/drag-drop'
+import {FormsModule, ReactiveFormsModule} from '@angular/forms'
 
 @NgModule({
   declarations: [
@@ -25,10 +26,12 @@ import {DragDropModule} from '@angular/cdk/drag-drop'
     TableDataDirective,
     MapperPipe,
   ],
-  imports: [
-    CommonModule,
-    DragDropModule
-  ],
+    imports: [
+        CommonModule,
+        DragDropModule,
+        FormsModule,
+        ReactiveFormsModule
+    ],
   exports: [
     TableComponent,
     TableHeadComponent,

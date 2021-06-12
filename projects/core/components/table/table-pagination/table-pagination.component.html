@@ -1,1 +1,15 @@
-<ng-content></ng-content>
+<div>
+  <select [formControl]="sizeControl">
+    <option *ngFor="let option of sizeOptions" [value]="option">{{option}}</option>
+  </select>
+</div>
+<div class="cu-table-pagination-range">
+  <span>Showing items</span> {{ itemsRange }}
+</div>
+<div class="cu-table-pagination-pages">
+  <span *ngFor="let element of pageRange"
+        [class.active]="element === page + 1"
+        (click)="changePage(element - 1)">
+    {{ element }}
+  </span>
+</div>
