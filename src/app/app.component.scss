@@ -38,24 +38,6 @@
   }
 }
 
-.logo {
-  text-align: center;
-  margin-bottom: 50px;
-
-  img {
-    height: 60px;
-    margin-bottom: 20px;
-  }
-
-  h1 {
-    margin-bottom: 0;
-  }
-
-  p {
-    opacity: .5;
-  }
-}
-
 .bar {
   display: flex;
   justify-content: space-between;
@@ -70,25 +52,6 @@
   }
 }
 
-/* Animate items as they're being sorted. */
-.cdk-drop-list-dragging .cdk-drag {
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-}
-
-/* Animate an item that has been dropped. */
-.cdk-drag-animating {
-  transition: transform 300ms cubic-bezier(0, 0, 0.2, 1);
-}
-
-.cdk-drop-list-dragging {
-  cursor: grabbing;
-}
-
-.cdk-drag-placeholder {
-  opacity: 0;
-  cursor: grabbing;
-}
-
 .handle {
   display: inline-block;
   margin-right: 8px;
@@ -98,4 +61,12 @@
     opacity: 1;
     cursor: grab;
   }
+}
+
+input {
+  background: #f0f4f6;
+  border: none;
+  padding: 6px 12px;
+  min-width: 300px;
+  outline: none;
 }

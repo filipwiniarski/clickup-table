@@ -1,12 +1,7 @@
-<div class="logo">
-  <img src="assets/logo-symbol-color.svg"
-       alt="Hello"/>
-  <h1>Mini Project</h1>
-  <p>by Filip Winiarski</p>
-</div>
+<app-introduction></app-introduction>
 <div class="bar">
   <h2>#1 Basic Table</h2>
-  <input type="text" name="search" placeholder="search" [formControl]="searchControl"/>
+  <input type="text" name="search" placeholder="Search" [formControl]="searchControl"/>
 </div>
 <cu-table [columns]="columns">
   <cu-table-head>

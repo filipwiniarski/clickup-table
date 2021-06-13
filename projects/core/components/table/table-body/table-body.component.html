@@ -3,14 +3,23 @@
   <ng-container
     *ngFor="let item of results; let index = index"
     [ngTemplateOutlet]="row.template"
-    [ngTemplateOutletContext]="item | mapper : toContext : index"
-  ></ng-container>
+    [ngTemplateOutletContext]="item | mapper : toContext : index">
+  </ng-container>
 </ng-container>
-<div *ngIf="results?.length === 0" class="cu-table-no-results">
+<div *ngIf="results?.length === 0"
+     class="cu-table-no-results">
   No results
 </div>
-<div *ngIf="!results" class="cu-table-spinner">
-  <svg class="spinner" viewBox="0 0 50 50">
-    <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+<div *ngIf="!results"
+     class="cu-table-spinner">
+  <svg class="spinner"
+       viewBox="0 0 50 50">
+    <circle class="path"
+            cx="25"
+            cy="25"
+            r="20"
+            fill="none"
+            stroke-width="5">
+    </circle>
   </svg>
 </div>

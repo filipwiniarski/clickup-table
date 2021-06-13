@@ -1,5 +1,4 @@
 import {
-  AfterContentInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -9,11 +8,10 @@ import {
   Inject,
   Input,
   SkipSelf,
-  ViewChild,
 } from '@angular/core';
 import { TableCellComponent } from '../table-cell/table-cell.component';
 import { TableComponent } from '../table.component';
-import { filter, map, startWith, takeUntil, tap } from 'rxjs/operators';
+import { map, takeUntil, tap } from 'rxjs/operators';
 import { SortMode, TableSortService } from '../services/table-sort.service';
 import { DestroyService } from '../services/destroy-service.service';
 
@@ -37,10 +35,6 @@ export class TableCellHeaderComponent<T> extends TableCellComponent<T> {
 
   @HostBinding('style.width.px')
   width: number | null = null;
-
-  @ViewChild('resizeBar', { read: ElementRef }) readonly resizeBar:
-    | ElementRef
-    | undefined;
 
   sortState: SortMode = null;
 
@@ -69,9 +63,7 @@ export class TableCellHeaderComponent<T> extends TableCellComponent<T> {
         }),
         tap(() => changeDetectorRef.markForCheck())
       )
-      .subscribe((mode) => {
-        this.sortState = mode;
-      });
+      .subscribe((mode) => (this.sortState = mode));
   }
 
   sortData() {
@@ -79,10 +71,5 @@ export class TableCellHeaderComponent<T> extends TableCellComponent<T> {
       column: this.column,
       mode: this.sortState ? (this.sortState === 'asc' ? 'desc' : null) : 'asc',
     });
-  }
-
-  setWidth(width?: number) {
-    this.width =
-      width ?? this.elementRef.nativeElement.getBoundingClientRect().width;
   }
 }

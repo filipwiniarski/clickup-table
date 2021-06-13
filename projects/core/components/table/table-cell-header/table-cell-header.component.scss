@@ -12,35 +12,6 @@
   color: white;
 }
 
-.resize-bar {
-  position: absolute;
-  height: 100%;
-  width: 8px;
-  top: 0;
-  right: 0;
-  z-index: 100;
-}
-
-.resize-bar:hover, .resize-bar:active {
-  cursor: col-resize;
-}
-
-.resize-bar:hover .resize-bar-line, .resize-bar:active .resize-bar-line {
-  width: 2px;
-  background: #225bff;
-  box-shadow: 0 0 5px rgba(0,0,0,.25);
-}
-
-.resize-bar-line {
-  position: absolute;
-  width: 1px;
-  right: 0;
-  top: 0;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.12);
-  transition: 150ms background, 150ms box-shadow;
-}
-
 .cu-table-cell-content {
   display: flex;
   justify-content: space-between;

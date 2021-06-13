@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { TableSortService } from './table-sort.service';
 
 describe('TableSortService', () => {
-  let service: TableSortService;
+  let service: TableSortService<any>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});

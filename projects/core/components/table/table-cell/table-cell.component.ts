@@ -4,18 +4,13 @@ import {
   Component,
   HostBinding,
   Inject,
-  Input,
-  Optional, TemplateRef
-} from '@angular/core'
-import {TableComponent} from '../table.component'
-import {TableHeadComponent} from '../table-head/table-head.component'
-import {TableRowComponent} from '../table-row/table-row.component'
+} from '@angular/core';
 
 @Component({
   selector: 'cu-table-cell:not([head])',
   templateUrl: './table-cell.component.html',
   styleUrls: ['./table-cell.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableCellComponent<T> {
   @HostBinding('class')
@@ -24,7 +19,7 @@ export class TableCellComponent<T> {
   column!: keyof T;
 
   constructor(
-    @Inject(ChangeDetectorRef) readonly changeDetectorRef: ChangeDetectorRef,
+    @Inject(ChangeDetectorRef) readonly changeDetectorRef: ChangeDetectorRef
   ) {}
 
   setColumn(value: keyof T) {

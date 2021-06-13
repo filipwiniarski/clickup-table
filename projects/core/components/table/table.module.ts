@@ -7,41 +7,26 @@ import { TablePaginationComponent } from './table-pagination/table-pagination.co
 import { TableCellComponent } from './table-cell/table-cell.component';
 import { TableRowComponent } from './table-row/table-row.component';
 import { TableCellHeaderComponent } from './table-cell-header/table-cell-header.component';
-import { TableResizeDragDirective } from './table-resize-drag/table-resize-drag.directive';
 import { TableDataDirective } from './table-data/table-data.directive';
 import { MapperPipe } from './pipes/mapper.pipe';
-import {DragDropModule} from '@angular/cdk/drag-drop'
-import {FormsModule, ReactiveFormsModule} from '@angular/forms'
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+const components = [
+  TableComponent,
+  TableHeadComponent,
+  TableBodyComponent,
+  TablePaginationComponent,
+  TableCellComponent,
+  TableRowComponent,
+  TableCellHeaderComponent,
+  TableDataDirective,
+  MapperPipe,
+];
 
 @NgModule({
-  declarations: [
-    TableComponent,
-    TableHeadComponent,
-    TableBodyComponent,
-    TablePaginationComponent,
-    TableCellComponent,
-    TableRowComponent,
-    TableCellHeaderComponent,
-    TableResizeDragDirective,
-    TableDataDirective,
-    MapperPipe,
-  ],
-    imports: [
-        CommonModule,
-        DragDropModule,
-        FormsModule,
-        ReactiveFormsModule
-    ],
-  exports: [
-    TableComponent,
-    TableHeadComponent,
-    TableBodyComponent,
-    TablePaginationComponent,
-    TableCellComponent,
-    TableRowComponent,
-    TableCellHeaderComponent,
-    TableResizeDragDirective,
-    TableDataDirective,
-  ]
+  declarations: [components],
+  imports: [CommonModule, DragDropModule, FormsModule, ReactiveFormsModule],
+  exports: [components],
 })
-export class TableModule { }
+export class TableModule {}
