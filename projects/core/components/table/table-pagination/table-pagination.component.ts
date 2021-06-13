@@ -48,10 +48,10 @@ export class TablePaginationComponent {
   }
 
   get itemsRange(): string {
-    const size = Number(this.sizeControl.value) ;
+    const size = Number(this.sizeControl.value);
     const first = this.page * size + 1;
     if (this.page + 1 === this.totalPages) {
-      const last = (this.page) * size + (this.total % size);
+      const last = (this.page) * size + ((this.total % size) || size);
       return `${first} - ${last}`;
     }
     return `${first} - ${first + size - 1}`;

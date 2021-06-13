@@ -4,22 +4,26 @@
   <h1>Mini Project</h1>
   <p>by Filip Winiarski</p>
 </div>
-<h2>#1 Basic Table</h2>
+<div class="bar">
+  <h2>#1 Basic Table</h2>
+  <input type="text" name="search" placeholder="search" [formControl]="searchControl"/>
+</div>
 <cu-table [columns]="columns">
   <cu-table-head>
     <cu-table-row>
       <cu-table-cell head>Name</cu-table-cell>
-      <cu-table-cell head>Logo</cu-table-cell>
-      <cu-table-cell head>Trips</cu-table-cell>
+      <cu-table-cell head>Images</cu-table-cell>
+      <cu-table-cell head>Followers</cu-table-cell>
+      <cu-table-cell head>Popularity</cu-table-cell>
     </cu-table-row>
   </cu-table-head>
-  <cu-table-body [data]="passengers"
-                 [loading]="!passengers"
+  <cu-table-body [data]="data"
+                 [loading]="!data"
                  cdkDropList
                  cdkDropListOrientation="vertical"
                  cdkDropListLockAxis="y"
-                 (cdkDropListDropped)="drop($event, passengers)">
-    <cu-table-row *cuTableData="let item of passengers" cdkDrag>
+                 (cdkDropListDropped)="drop($event, data)">
+    <cu-table-row *cuTableData="let item of data" cdkDrag>
       <cu-table-cell>
         <img src="assets/drag_indicator_black_24dp.svg"
              alt="Hello"
@@ -28,9 +32,10 @@
         {{ item.name }}
       </cu-table-cell>
       <cu-table-cell>
-        <img height="16" [src]="item.logo"/>
+        <img height="16" [src]="item.images[0].url"/>
       </cu-table-cell>
-      <cu-table-cell>{{ item.trips }}</cu-table-cell>
+      <cu-table-cell>{{ item.followers.total | number }}</cu-table-cell>
+      <cu-table-cell>{{ item.popularity }}</cu-table-cell>
     </cu-table-row>
   </cu-table-body>
 </cu-table>

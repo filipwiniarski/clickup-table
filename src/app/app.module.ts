@@ -5,18 +5,18 @@ import { AppComponent } from './app.component';
 import { TableModule } from '@clickup/core/components/table'
 import {DragDropModule} from '@angular/cdk/drag-drop'
 import {HttpClientModule} from '@angular/common/http';
-import { PassengerTableItemPipe } from './core/pipes/passenger-table-item.pipe'
+import {ReactiveFormsModule} from '@angular/forms'
 
 @NgModule({
   declarations: [
     AppComponent,
-    PassengerTableItemPipe
   ],
   imports: [
     BrowserModule,
     DragDropModule,
     TableModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
