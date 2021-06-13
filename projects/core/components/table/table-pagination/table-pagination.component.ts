@@ -1,14 +1,22 @@
-import {ChangeDetectionStrategy, Component, HostBinding, Input, Output, EventEmitter, Inject} from '@angular/core'
-import {FormControl} from '@angular/forms'
-import {DestroyService} from '../services/destroy-service.service'
-import {takeUntil} from 'rxjs/operators'
+import {
+  ChangeDetectionStrategy,
+  Component,
+  HostBinding,
+  Input,
+  Output,
+  EventEmitter,
+  Inject,
+} from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { DestroyService } from '../services/destroy-service.service';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'cu-table-pagination',
   templateUrl: './table-pagination.component.html',
   styleUrls: ['./table-pagination.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [DestroyService]
+  providers: [DestroyService],
 })
 export class TablePaginationComponent {
   @HostBinding('class')
@@ -41,26 +49,26 @@ export class TablePaginationComponent {
   get pageRange(): number[] {
     let length = 5;
     if (length > this.totalPages) length = this.totalPages;
-    let start = (this.page + 1) - Math.floor(length / 2);
+    let start = this.page + 1 - Math.floor(length / 2);
     start = Math.max(start, 1);
     start = Math.min(start, 1 + this.totalPages - length);
-    return Array.from({length: length}, (el, i) => start + i);
+    return Array.from({ length: length }, (el, i) => start + i);
   }
 
   get itemsRange(): string {
     const size = Number(this.sizeControl.value);
     const first = this.page * size + 1;
     if (this.page + 1 === this.totalPages) {
-      const last = (this.page) * size + ((this.total % size) || size);
+      const last = this.page * size + (this.total % size || size);
       return `${first} - ${last}`;
     }
     return `${first} - ${first + size - 1}`;
   }
 
   constructor(@Inject(DestroyService) destroy$: DestroyService) {
-    this.sizeControl.valueChanges.pipe(
-      takeUntil(destroy$),
-    ).subscribe((value) => this.changeSize(value))
+    this.sizeControl.valueChanges
+      .pipe(takeUntil(destroy$))
+      .subscribe((value) => this.changeSize(value));
   }
 
   changePage(page: number): void {
@@ -72,5 +80,6 @@ export class TablePaginationComponent {
     const sizeNumber = Number(size);
     this.size = sizeNumber;
     this.sizeChange.emit(sizeNumber);
+    this.changePage(0);
   }
 }

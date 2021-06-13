@@ -5,7 +5,8 @@ import { AppComponent } from './app.component';
 import { TableModule } from '@clickup/core/components/table'
 import {DragDropModule} from '@angular/cdk/drag-drop'
 import {HttpClientModule} from '@angular/common/http';
-import {ReactiveFormsModule} from '@angular/forms'
+import {ReactiveFormsModule} from '@angular/forms';
+import {GenreModule} from './ui/genre/genre.module'
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {ReactiveFormsModule} from '@angular/forms'
     DragDropModule,
     TableModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    GenreModule
   ],
   providers: [],
   bootstrap: [AppComponent]

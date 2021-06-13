@@ -1,3 +1,43 @@
+/** ng-deep required to apply styles to a placeholder */
+::ng-deep .cu-table-cell {
+  &:nth-child(1) {
+    flex: 2;
+  }
+  &:nth-child(2) {
+    flex: 3;
+  }
+  &:nth-child(3) {
+    flex: 1;
+  }
+  &:nth-child(4) {
+    flex: 1;
+  }
+}
+
+.name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.artist-name {
+  position: relative;
+  z-index: 1;
+}
+
+.artist-image {
+  position: relative;
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+  overflow: hidden;
+  margin-right: 15px;
+  margin-left: 20px;
+
+  img {
+    height: 100%;
+  }
+}
+
 .logo {
   text-align: center;
   margin-bottom: 50px;
@@ -20,6 +60,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.genres {
+  margin-bottom: -8px;
+  > app-genre {
+    margin-right: 8px;
+    margin-bottom: 8px;
+  }
 }
 
 /* Animate items as they're being sorted. */

@@ -17,6 +17,7 @@ export class AppComponent {
   columns: ReadonlyArray<keyof Artist> = [
     'name',
     'images',
+    'genres',
     'followers',
     'popularity',
   ]

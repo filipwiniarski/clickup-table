@@ -11,8 +11,8 @@
 <cu-table [columns]="columns">
   <cu-table-head>
     <cu-table-row>
-      <cu-table-cell head>Name</cu-table-cell>
-      <cu-table-cell head>Images</cu-table-cell>
+      <cu-table-cell head>Artist</cu-table-cell>
+      <cu-table-cell head>Genres</cu-table-cell>
       <cu-table-cell head>Followers</cu-table-cell>
       <cu-table-cell head>Popularity</cu-table-cell>
     </cu-table-row>
@@ -29,10 +29,17 @@
              alt="Hello"
              class="handle"
              cdkDragHandle/>
-        {{ item.name }}
+        <div class="artist-image">
+          <img height="16" [src]="item.images[2].url"/>
+        </div>
+        <div class="artist-name">
+          <span class="name">{{ item.name }}</span>
+        </div>
       </cu-table-cell>
       <cu-table-cell>
-        <img height="16" [src]="item.images[0].url"/>
+        <div class="genres">
+          <app-genre *ngFor="let genre of item.genres">{{ genre }}</app-genre>
+        </div>
       </cu-table-cell>
       <cu-table-cell>{{ item.followers.total | number }}</cu-table-cell>
       <cu-table-cell>{{ item.popularity }}</cu-table-cell>
