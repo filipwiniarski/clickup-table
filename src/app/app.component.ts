@@ -1,17 +1,24 @@
-import {ChangeDetectorRef, Component, Inject} from '@angular/core'
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop'
-import {ArtistService} from './core/api/artist.service'
-import {BehaviorSubject, combineLatest} from 'rxjs'
-import {DestroyService} from '@clickup/core/components/table/services/destroy-service.service'
-import {debounceTime, distinctUntilChanged, startWith, switchMap, takeUntil, tap} from 'rxjs/operators'
-import {Artist} from './core/models/artist'
-import {FormControl} from '@angular/forms'
+import { ChangeDetectorRef, Component, Inject } from '@angular/core';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { ArtistService } from './core/api/artist.service';
+import { BehaviorSubject, combineLatest } from 'rxjs';
+import { DestroyService } from '@clickup/core/components/table/services/destroy-service.service';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  startWith,
+  switchMap,
+  takeUntil,
+  tap,
+} from 'rxjs/operators';
+import { Artist } from './core/models/artist';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [DestroyService]
+  providers: [DestroyService],
 })
 export class AppComponent {
   columns: ReadonlyArray<keyof Artist> = [
@@ -20,7 +27,7 @@ export class AppComponent {
     'genres',
     'followers',
     'popularity',
-  ]
+  ];
 
   data: Artist[] | undefined;
 
@@ -41,17 +48,27 @@ export class AppComponent {
       this.pageChange$,
       this.sizeChange$,
       this.searchControl.valueChanges.pipe(startWith(null)),
-    ]).pipe(
-      takeUntil(destroy$),
-      distinctUntilChanged(),
-      tap(() => this.data = undefined),
-      debounceTime(400),
-      switchMap(([page, size, query]) => passengerService.getArtists({page, size, query})),
-      tap(() => changeDetectorRef.markForCheck()),
-    ).subscribe(({data, total}) => {
-      this.data = data;
-      this.total = total;
-    });
+    ])
+      .pipe(
+        takeUntil(destroy$),
+        distinctUntilChanged(),
+        tap(() => (this.data = undefined)),
+        debounceTime(400),
+        switchMap(([page, size, query]) =>
+          passengerService.getArtists({ page, size, query })
+        ),
+        tap(() => changeDetectorRef.markForCheck())
+      )
+      .subscribe(
+        ({ data, total }) => {
+          this.data = data;
+          this.total = total;
+        },
+        (error) => {
+          this.data = [];
+          this.total = 0;
+        }
+      );
   }
 
   drop(event: CdkDragDrop<Artist[]>, data: Artist[] | undefined) {

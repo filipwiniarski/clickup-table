@@ -55,7 +55,10 @@ export class TablePaginationComponent {
     return Array.from({ length: length }, (el, i) => start + i);
   }
 
-  get itemsRange(): string {
+  get itemsRange(): string | null {
+    if (!this.total) {
+      return '-';
+    }
     const size = Number(this.sizeControl.value);
     const first = this.page * size + 1;
     if (this.page + 1 === this.totalPages) {
