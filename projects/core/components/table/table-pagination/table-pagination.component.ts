@@ -87,6 +87,9 @@ export class TablePaginationComponent {
     const sizeNumber = Number(size);
     this.size = sizeNumber;
     this.sizeChange.emit(sizeNumber);
-    this.changePage(0);
+    if (this.page >= this.totalPages) {
+      this.page = this.totalPages - 1;
+      this.changePage(0);
+    }
   }
 }
