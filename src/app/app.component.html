@@ -44,6 +44,7 @@
   </cu-table-body>
 </cu-table>
 <cu-table-pagination [total]="total"
+                     [page]="pageChange$ | async"
                      (sizeChange)="onSizeChange($event)"
                      (pageChange)="onPageChange($event)">
 </cu-table-pagination>

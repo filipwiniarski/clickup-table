@@ -34,9 +34,9 @@ export class AppComponent {
 
   total = 0;
 
-  pageChange$ = new BehaviorSubject<number>(0);
+  readonly pageChange$ = new BehaviorSubject<any>(0);
 
-  sizeChange$ = new BehaviorSubject<number>(10);
+  readonly sizeChange$ = new BehaviorSubject<any>(10);
 
   readonly searchControl = new FormControl(null, Validators.minLength(2));
 
@@ -50,22 +50,22 @@ export class AppComponent {
       this.sizeChange$,
       this.searchControl.valueChanges.pipe(
         startWith(null),
-        filter((value: string) => !value || value?.length > 1)
+        filter((value: string) => !value || value?.length > 1),
+        distinctUntilChanged(),
+        tap(() => this.pageChange$.next(0))
       ),
     ])
       .pipe(
         takeUntil(destroy$),
         distinctUntilChanged(),
-        tap(() => (this.data = undefined)),
+        tap(() => {
+          this.data = undefined;
+          changeDetectorRef.markForCheck();
+        }),
         debounceTime(400),
         switchMap(([page, size, query]) =>
-          passengerService.getArtists({
-            page,
-            size,
-            query,
-          })
-        ),
-        tap(() => changeDetectorRef.markForCheck())
+          passengerService.getArtists({ page, size, query })
+        )
       )
       .subscribe(
         ({ data, total }) => {
