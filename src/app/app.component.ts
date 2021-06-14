@@ -47,7 +47,9 @@ export class AppComponent {
     combineLatest([
       this.pageChange$,
       this.sizeChange$,
-      this.searchControl.valueChanges.pipe(startWith(null)),
+      this.searchControl.valueChanges
+        .pipe(startWith(null))
+        .pipe(tap(() => this.pageChange$.next(0))),
     ])
       .pipe(
         takeUntil(destroy$),
@@ -55,7 +57,11 @@ export class AppComponent {
         tap(() => (this.data = undefined)),
         debounceTime(400),
         switchMap(([page, size, query]) =>
-          passengerService.getArtists({ page, size, query })
+          passengerService.getArtists({
+            page,
+            size,
+            query,
+          })
         ),
         tap(() => changeDetectorRef.markForCheck())
       )
@@ -64,7 +70,7 @@ export class AppComponent {
           this.data = data;
           this.total = total;
         },
-        (error) => {
+        () => {
           this.data = [];
           this.total = 0;
         }

@@ -23,33 +23,22 @@ const handler = (event, context, callback) => {
       const start = _page * _size;
       const take = start + _size >= total ? total : start + _size;
 
-      let results;
+      let results = json.data;
 
       if (query.length > 0 && query !== "null") {
-        results = json.data
-          .filter((item) =>
-            item.name.toLowerCase().includes(query.toLowerCase())
-          )
-          .slice(start, take);
-        callback(null, {
-          statusCode: 200,
-          headers,
-          body: JSON.stringify({
-            data: results,
-            total: results.length,
-          }),
-        });
-      } else {
-        results = json.data.slice(start, take);
-        callback(null, {
-          statusCode: 200,
-          headers,
-          body: JSON.stringify({
-            data: results,
-            total: total,
-          }),
-        });
+        results = results.filter((item) =>
+          item.name.toLowerCase().includes(query.toLowerCase())
+        );
       }
+
+      callback(null, {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({
+          data: results.slice(start, take),
+          total: results.length,
+        }),
+      });
     });
 };
 

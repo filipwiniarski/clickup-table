@@ -1,20 +1,24 @@
 :host {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  user-select: none;
+}
+
+.cu-table-pagination-controls {
   display: grid;
   justify-content: flex-end;
   align-items: center;
   grid-gap: 25px;
   grid-auto-flow: column;
-  font-size: 14px;
   user-select: none;
 }
 
-.cu-table-pagination-range {
-
-  span {
-    display: inline-block;
-    margin-right: 3px;
-    opacity: .4;
-  }
+.cu-table-pagination-label {
+  display: inline-block;
+  margin-right: 3px;
+  opacity: .4;
 }
 
 .cu-table-pagination-pages {

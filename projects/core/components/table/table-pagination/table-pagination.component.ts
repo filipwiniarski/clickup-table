@@ -6,6 +6,7 @@ import {
   Output,
   EventEmitter,
   Inject,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { DestroyService } from '../services/destroy-service.service';
@@ -68,7 +69,10 @@ export class TablePaginationComponent {
     return `${first} - ${first + size - 1}`;
   }
 
-  constructor(@Inject(DestroyService) destroy$: DestroyService) {
+  constructor(
+    @Inject(DestroyService) destroy$: DestroyService,
+    @Inject(ChangeDetectorRef) readonly changeDetectorRef: ChangeDetectorRef
+  ) {
     this.sizeControl.valueChanges
       .pipe(takeUntil(destroy$))
       .subscribe((value) => this.changeSize(value));
