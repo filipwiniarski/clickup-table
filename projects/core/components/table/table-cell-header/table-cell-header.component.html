@@ -1,8 +1,11 @@
 <div class="cu-table-cell-content">
-  <div class="cu-table-cell-label" (click)="sortData()">
+  <div class="cu-table-cell-label"
+       [class.disabled]="disableSort"
+       (click)="sortData()">
     <ng-content></ng-content>
     <ng-container *ngIf="sortState">
-      <img class="cu-table-cell-sort-icon" [class.rotated]="sortState === 'desc'" src="./assets/arrow.svg"/>
+      <img class="cu-table-cell-sort-icon"
+           [class.rotated]="sortState === 'desc'" src="./assets/arrow.svg"/>
     </ng-container>
   </div>
 </div>

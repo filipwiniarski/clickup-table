@@ -20,10 +20,14 @@
 
 .cu-table-cell-label {
   cursor: pointer;
-}
 
-.cu-table-cell-label:hover {
-  opacity: .7;
+  &:not(.disabled):hover {
+    opacity: .7;
+  }
+
+  &.disabled {
+    cursor: default;
+  }
 }
 
 .cu-table-cell-sort-icon {
