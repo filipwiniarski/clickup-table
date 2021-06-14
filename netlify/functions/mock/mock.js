@@ -25,7 +25,7 @@ const handler = (event, context, callback) => {
 
       let results;
 
-      if (query?.length > 0 && query !== "null") {
+      if (query.length > 0 && query !== "null") {
         results = json.data
           .filter((item) =>
             item.name.toLowerCase().includes(query.toLowerCase())
