@@ -15,7 +15,7 @@ export class ArtistService {
   getArtists(params: PaginationParams): Observable<ListFetch<Artist>> {
     return this.http.get<ListFetch<Artist>>(`${environment.baseApiUrl}/mock`, {
       params: new HttpParams({
-        fromObject: params,
+        fromObject: params as any,
       }),
     });
   }

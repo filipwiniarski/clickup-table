@@ -3,17 +3,24 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  EventEmitter,
   forwardRef,
   HostBinding,
   Inject,
   Input,
+  Output,
   SkipSelf,
 } from '@angular/core';
 import { TableCellComponent } from '../table-cell/table-cell.component';
 import { TableComponent } from '../table.component';
-import { map, takeUntil, tap } from 'rxjs/operators';
-import { SortMode, TableSortService } from '../services/table-sort.service';
+import { filter, map, takeUntil, tap } from 'rxjs/operators';
+import {
+  SortEvent,
+  SortMode,
+  TableSortService,
+} from '../services/table-sort.service';
 import { DestroyService } from '../services/destroy-service.service';
+import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 
 type Sort = 'string' | 'number' | 'date';
 
@@ -29,6 +36,20 @@ export class TableCellHeaderComponent<T> extends TableCellComponent<T> {
 
   @Input()
   sort: Sort | undefined;
+
+  @Output()
+  onSort = new EventEmitter<SortEvent<keyof T>>();
+
+  @Input()
+  set disableSort(value: BooleanInput) {
+    this._disableSort = coerceBooleanProperty(value);
+  }
+
+  get disableSort(): BooleanInput {
+    return this._disableSort;
+  }
+
+  _disableSort = false;
 
   @Input()
   sortFn: ((a: T, b: T) => boolean) | undefined;
@@ -54,6 +75,7 @@ export class TableCellHeaderComponent<T> extends TableCellComponent<T> {
     tableSortService.sort$
       .pipe(
         takeUntil(this.destroy$),
+        filter(() => !this.disableSort),
         map((event) => {
           if (event.column === this.column) {
             return event.mode;
@@ -67,9 +89,14 @@ export class TableCellHeaderComponent<T> extends TableCellComponent<T> {
   }
 
   sortData() {
-    this.tableSortService.sort$.next({
+    if (this.disableSort) {
+      return;
+    }
+    const sortEvent = {
       column: this.column,
       mode: this.sortState ? (this.sortState === 'asc' ? 'desc' : null) : 'asc',
-    });
+    } as SortEvent<keyof T>;
+    this.tableSortService.sort$.next(sortEvent);
+    this.onSort.next(sortEvent);
   }
 }

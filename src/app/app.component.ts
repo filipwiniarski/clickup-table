@@ -14,6 +14,7 @@ import {
 } from 'rxjs/operators';
 import { Artist } from './core/models/artist';
 import { FormControl, Validators } from '@angular/forms';
+import { SortEvent } from '@clickup/core/components/table/services/table-sort.service';
 
 @Component({
   selector: 'app-root',
@@ -38,6 +39,11 @@ export class AppComponent {
 
   readonly sizeChange$ = new BehaviorSubject<any>(10);
 
+  readonly sort$ = new BehaviorSubject<SortEvent<keyof Artist>>({
+    column: null,
+    mode: null,
+  });
+
   readonly searchControl = new FormControl(null, Validators.minLength(2));
 
   constructor(
@@ -46,6 +52,7 @@ export class AppComponent {
     @Inject(ChangeDetectorRef) changeDetectorRef: ChangeDetectorRef
   ) {
     combineLatest([
+      this.sort$,
       this.pageChange$,
       this.sizeChange$,
       this.searchControl.valueChanges.pipe(
@@ -63,8 +70,14 @@ export class AppComponent {
           changeDetectorRef.markForCheck();
         }),
         debounceTime(400),
-        switchMap(([page, size, query]) =>
-          passengerService.getArtists({ page, size, query })
+        switchMap(([sortEvent, page, size, query]) =>
+          passengerService.getArtists({
+            page,
+            size,
+            query,
+            sortBy: sortEvent.column,
+            sortDirection: sortEvent.mode,
+          })
         )
       )
       .subscribe(
@@ -91,5 +104,9 @@ export class AppComponent {
 
   onPageChange(page: number): void {
     this.pageChange$.next(page);
+  }
+
+  onSortChange(sort: SortEvent<any>): void {
+    this.sort$.next(sort as SortEvent<keyof Artist>);
   }
 }

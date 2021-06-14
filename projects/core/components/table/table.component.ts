@@ -5,6 +5,7 @@ import {
   Input,
 } from '@angular/core';
 import { TableSortService } from './services/table-sort.service';
+import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 
 @Component({
   selector: 'cu-table',
@@ -19,4 +20,20 @@ export class TableComponent<T> {
 
   @Input()
   columns!: ReadonlyArray<keyof T | string>;
+
+  /**
+   * Tells if table is fetching data from server.
+   * If so then pagination and sort features will switch to server ready implementation.
+   * @param value
+   */
+  @Input()
+  set async(value: BooleanInput) {
+    this._async = coerceBooleanProperty(value);
+  }
+
+  get async(): BooleanInput {
+    return this._async;
+  }
+
+  _async = false;
 }

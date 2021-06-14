@@ -1,17 +1,19 @@
 <app-introduction></app-introduction>
+
 <div class="bar">
-  <h2>#1 Basic Table</h2>
+  <h2>Server Table</h2>
   <div class="search">
     <input type="text" name="search" placeholder="Search" [formControl]="searchControl"/>
   </div>
 </div>
-<cu-table [columns]="columns">
+
+<cu-table [columns]="columns" async>
   <cu-table-head>
     <cu-table-row>
-      <cu-table-cell head>Artist</cu-table-cell>
-      <cu-table-cell head>Genres</cu-table-cell>
-      <cu-table-cell head>Followers</cu-table-cell>
-      <cu-table-cell head>Popularity</cu-table-cell>
+      <cu-table-cell head (onSort)="onSortChange($event)">Artist</cu-table-cell>
+      <cu-table-cell head disableSort>Genres</cu-table-cell>
+      <cu-table-cell head (onSort)="onSortChange($event)">Followers</cu-table-cell>
+      <cu-table-cell head (onSort)="onSortChange($event)">Popularity</cu-table-cell>
     </cu-table-row>
   </cu-table-head>
   <cu-table-body [data]="data"
@@ -21,6 +23,7 @@
                  cdkDropListLockAxis="y"
                  (cdkDropListDropped)="drop($event, data)">
     <cu-table-row *cuTableData="let item of data" cdkDrag>
+
       <cu-table-cell>
         <img src="assets/drag_indicator_black_24dp.svg"
              alt="Hello"
@@ -33,16 +36,21 @@
           <span class="name">{{ item.name }}</span>
         </div>
       </cu-table-cell>
+
       <cu-table-cell>
         <div class="genres">
           <app-genre *ngFor="let genre of item.genres">{{ genre }}</app-genre>
         </div>
       </cu-table-cell>
+
       <cu-table-cell>{{ item.followers.total | number }}</cu-table-cell>
+
       <cu-table-cell>{{ item.popularity }}</cu-table-cell>
+
     </cu-table-row>
   </cu-table-body>
 </cu-table>
+
 <cu-table-pagination [total]="total"
                      [page]="pageChange$ | async"
                      (sizeChange)="onSizeChange($event)"
