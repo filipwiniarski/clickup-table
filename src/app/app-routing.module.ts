@@ -6,6 +6,11 @@ import { ViewTableClientComponent } from './views/view-table-client/view-table-c
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'server',
+    pathMatch: 'full',
+  },
+  {
     path: 'server',
     component: ViewTableServerComponent,
   },
