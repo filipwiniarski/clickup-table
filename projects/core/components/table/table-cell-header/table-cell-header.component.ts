@@ -37,9 +37,6 @@ export class TableCellHeaderComponent<T> extends TableCellComponent<T> {
   @Input()
   sort: Sort | undefined;
 
-  @Output()
-  onSort = new EventEmitter<SortEvent<keyof T>>();
-
   @Input()
   set disableSort(value: BooleanInput) {
     this._disableSort = coerceBooleanProperty(value);
@@ -97,6 +94,5 @@ export class TableCellHeaderComponent<T> extends TableCellComponent<T> {
       mode: this.sortState ? (this.sortState === 'asc' ? 'desc' : null) : 'asc',
     } as SortEvent<keyof T>;
     this.tableSortService.sort$.next(sortEvent);
-    this.onSort.next(sortEvent);
   }
 }

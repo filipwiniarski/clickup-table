@@ -7,13 +7,13 @@
   </div>
 </div>
 
-<cu-table [columns]="columns" async>
+<cu-table [columns]="columns" (onSort)="onSortChange($event)">
   <cu-table-head>
     <cu-table-row>
-      <cu-table-cell head (onSort)="onSortChange($event)">Artist</cu-table-cell>
+      <cu-table-cell head>Artist</cu-table-cell>
       <cu-table-cell head disableSort>Genres</cu-table-cell>
-      <cu-table-cell head (onSort)="onSortChange($event)">Followers</cu-table-cell>
-      <cu-table-cell head (onSort)="onSortChange($event)">Popularity</cu-table-cell>
+      <cu-table-cell head>Followers</cu-table-cell>
+      <cu-table-cell head>Popularity</cu-table-cell>
     </cu-table-row>
   </cu-table-head>
   <cu-table-body [data]="data"

@@ -25,7 +25,6 @@ import { SortEvent } from '@clickup/core/components/table/services/table-sort.se
 export class AppComponent {
   columns: ReadonlyArray<keyof Artist> = [
     'name',
-    'images',
     'genres',
     'followers',
     'popularity',
