@@ -1,0 +1,40 @@
+<cu-table [columns]="columns">
+  <cu-table-head>
+    <cu-table-row>
+      <cu-table-cell head>Artist</cu-table-cell>
+      <cu-table-cell head disableSort>Genres</cu-table-cell>
+      <cu-table-cell head>Followers</cu-table-cell>
+      <cu-table-cell head>Popularity</cu-table-cell>
+    </cu-table-row>
+  </cu-table-head>
+  <cu-table-body [data]="data"
+                 [loading]="!data"
+                 cdkDropList
+                 cdkDropListOrientation="vertical"
+                 cdkDropListLockAxis="y"
+                 (cdkDropListDropped)="drop($event, data)">
+    <cu-table-row *cuTableData="let item of data" cdkDrag>
+      <cu-table-cell>
+        <img src="assets/drag_indicator_black_24dp.svg"
+             width="24"
+             height="24"
+             alt="Hello"
+             class="handle"
+             cdkDragHandle/>
+        <div class="artist-image">
+          <img height="50" width="50" [src]="item.images[2].url"/>
+        </div>
+        <div class="artist-name">
+          <span class="name">{{ item.name }}</span>
+        </div>
+      </cu-table-cell>
+      <cu-table-cell>
+        <div class="genres">
+          <app-genre *ngFor="let genre of item.genres">{{ genre }}</app-genre>
+        </div>
+      </cu-table-cell>
+      <cu-table-cell>{{ item.followers.total | number }}</cu-table-cell>
+      <cu-table-cell>{{ item.popularity }}</cu-table-cell>
+    </cu-table-row>
+  </cu-table-body>
+</cu-table>

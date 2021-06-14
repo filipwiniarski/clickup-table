@@ -6,10 +6,12 @@
     [ngTemplateOutletContext]="item | mapper : toContext : index">
   </ng-container>
 </ng-container>
+
 <div *ngIf="results?.length === 0"
      class="cu-table-no-results">
   No results
 </div>
+
 <div *ngIf="!results"
      class="cu-table-spinner">
   <svg class="spinner"

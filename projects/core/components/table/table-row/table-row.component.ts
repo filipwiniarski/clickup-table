@@ -25,6 +25,7 @@ export class TableRowComponent<T> extends TableCellsWrapperComponent<T> {
   @ContentChildren(forwardRef(() => TableCellComponent)) cells:
     | QueryList<TableCellComponent<T>>
     | undefined;
+
   @ContentChildren(forwardRef(() => TableCellHeaderComponent)) headCells:
     | QueryList<TableCellHeaderComponent<T>>
     | undefined;

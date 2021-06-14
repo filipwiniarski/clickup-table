@@ -8,7 +8,6 @@ import {
   Inject,
 } from '@angular/core';
 import { SortEvent, TableSortService } from './services/table-sort.service';
-import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DestroyService } from './services/destroy-service.service';
 import { takeUntil } from 'rxjs/operators';
 
@@ -28,22 +27,6 @@ export class TableComponent<T> {
 
   @Output()
   onSort = new EventEmitter<SortEvent<keyof T>>();
-
-  /**
-   * Tells if table is fetching data from server.
-   * If so then pagination and sort features will switch to server ready implementation.
-   * @param value
-   */
-  @Input()
-  set async(value: BooleanInput) {
-    this._async = coerceBooleanProperty(value);
-  }
-
-  get async(): BooleanInput {
-    return this._async;
-  }
-
-  _async = false;
 
   constructor(
     @Inject(TableSortService) tableSort: TableSortService<T>,

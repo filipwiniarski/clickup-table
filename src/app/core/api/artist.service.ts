@@ -12,7 +12,7 @@ import { environment } from '../../../environments/environment';
 export class ArtistService {
   constructor(private http: HttpClient) {}
 
-  getArtists(params: PaginationParams): Observable<ListFetch<Artist>> {
+  getArtists(params: PaginationParams = {}): Observable<ListFetch<Artist>> {
     return this.http.get<ListFetch<Artist>>(`${environment.baseApiUrl}/mock`, {
       params: new HttpParams({
         fromObject: params as any,

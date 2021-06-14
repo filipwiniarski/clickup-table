@@ -52,13 +52,18 @@ const handler = (event, context, callback) => {
 
       let results = json.data;
 
-      if (query.length > 0 && query !== "null") {
+      if (query && query.length > 0 && query !== "null") {
         results = results.filter((item) =>
           item.name.toLowerCase().includes(query.toLowerCase())
         );
       }
 
-      if (sortBy.length > 0 && sortBy !== "null" && sortDirection !== "null") {
+      if (
+        sortBy &&
+        sortBy.length > 0 &&
+        sortBy !== "null" &&
+        sortDirection !== "null"
+      ) {
         const sortMethod = getSortMethod(sortBy);
         results = results.sort((a, b) => {
           if (!sortMethod) {
@@ -75,7 +80,7 @@ const handler = (event, context, callback) => {
         statusCode: 200,
         headers,
         body: JSON.stringify({
-          data: results.slice(start, take),
+          data: start >= 0 && take >= 0 ? results.slice(start, take) : results,
           total: results.length,
         }),
       });
