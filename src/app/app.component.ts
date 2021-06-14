@@ -6,13 +6,14 @@ import { DestroyService } from '@clickup/core/components/table/services/destroy-
 import {
   debounceTime,
   distinctUntilChanged,
+  filter,
   startWith,
   switchMap,
   takeUntil,
   tap,
 } from 'rxjs/operators';
 import { Artist } from './core/models/artist';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -37,7 +38,7 @@ export class AppComponent {
 
   sizeChange$ = new BehaviorSubject<number>(10);
 
-  readonly searchControl = new FormControl();
+  readonly searchControl = new FormControl(null, Validators.minLength(2));
 
   constructor(
     @Inject(ArtistService) passengerService: ArtistService,
@@ -47,9 +48,10 @@ export class AppComponent {
     combineLatest([
       this.pageChange$,
       this.sizeChange$,
-      this.searchControl.valueChanges
-        .pipe(startWith(null))
-        .pipe(tap(() => this.pageChange$.next(0))),
+      this.searchControl.valueChanges.pipe(
+        startWith(null),
+        filter((value: string) => !value || value?.length > 1)
+      ),
     ])
       .pipe(
         takeUntil(destroy$),

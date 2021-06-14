@@ -1,7 +1,9 @@
 <app-introduction></app-introduction>
 <div class="bar">
   <h2>#1 Basic Table</h2>
-  <input type="text" name="search" placeholder="Search" [formControl]="searchControl"/>
+  <div class="search">
+    <input type="text" name="search" placeholder="Search" [formControl]="searchControl"/>
+  </div>
 </div>
 <cu-table [columns]="columns">
   <cu-table-head>

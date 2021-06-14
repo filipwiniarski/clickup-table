@@ -63,10 +63,27 @@
   }
 }
 
-input {
-  background: #f0f4f6;
-  border: none;
-  padding: 6px 12px;
-  min-width: 300px;
-  outline: none;
+.search {
+  input {
+    display: block;
+    background: #f0f4f6;
+    border: 1px transparent solid;
+    padding: 6px 12px;
+    min-width: 300px;
+    outline: none;
+    /** trick to make the state correspond to debounceTime behaviour: */
+    transition-delay: 400ms;
+    transition-duration: 250ms;
+
+    &.ng-invalid {
+      border: 1px #e25151 solid;
+    }
+  }
+
+  span {
+    display: block;
+    font-size: 12px;
+    opacity: .6;
+    margin-top: 6px;
+  }
 }
