@@ -11,19 +11,28 @@ const headers = {
 };
 
 const handler = async (event) => {
+  console.log("cat");
   const { size, page, query } = event.queryStringParameters;
+
+  console.log(size, page, query);
   const _size = Number(size);
   const _page = Number(page);
   const start = _page * _size;
   const take = start + _size >= total ? total : start + _size;
 
+  console.log(size, page, query);
+
   let results;
+
+  console.log(size, page, query, results);
 
   try {
     if (query?.length > 0 && query !== "null") {
+      console.log("xd");
       results = data.data
         .filter((item) => item.name.toLowerCase().includes(query.toLowerCase()))
         .slice(start, take);
+      console.log(size, page, query, results);
       return {
         statusCode: 200,
         headers,
@@ -33,7 +42,9 @@ const handler = async (event) => {
         }),
       };
     } else {
+      console.log("dog");
       results = data.data.slice(start, take);
+      console.log(size, page, query, results);
       return {
         statusCode: 200,
         headers,
