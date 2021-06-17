@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   flex: 1;
-  padding: 15px 20px;
+  padding: 5px 10px;
   background: #4370ff;
   position: relative;
   text-transform: uppercase;
@@ -11,6 +11,10 @@
   white-space: nowrap;
   color: white;
   overflow: hidden;
+
+  @media screen and (min-width: 1200px) {
+    padding: 15px 20px;
+  }
 }
 
 .cu-table-cell-content {

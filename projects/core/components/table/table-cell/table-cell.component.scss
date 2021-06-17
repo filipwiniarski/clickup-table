@@ -2,10 +2,14 @@
   display: flex;
   align-items: center;
   flex: 1;
-  padding: 15px 20px;
+  padding: 5px 10px;
   user-select: text;
   font-size: 14px;
   overflow: hidden;
+
+  @media screen and (min-width: 1200px) {
+    padding: 15px 20px;
+  }
 }
 
 .cu-table-cell-content {

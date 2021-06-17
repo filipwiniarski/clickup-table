@@ -2,25 +2,45 @@
 ::ng-deep .cu-table-cell {
   &:nth-child(1) {
     flex: 2;
-    min-width: 350px;
+    min-width: auto;
+
+    @media screen and (min-width: 1200px) {
+      min-width: 350px;
+    }
   }
   &:nth-child(2) {
     flex: 3;
-    min-width: 450px;
+    min-width: auto;
+
+    @media screen and (min-width: 1200px) {
+      min-width: 450px;
+    }
   }
   &:nth-child(3) {
     flex: 1;
-    min-width: 120px;
+    min-width: auto;
+
+    @media screen and (min-width: 1200px) {
+      min-width: 120px;
+    }
   }
   &:nth-child(4) {
     flex: 1;
-    min-width: 120px;
+    min-width: auto;
+
+    @media screen and (min-width: 1200px) {
+      min-width: 120px;
+    }
   }
 }
 
 .name {
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 13px;
+
+  @media screen and (min-width: 1200px) {
+    font-size: 18px;
+    font-weight: bold;
+  }
 }
 
 .artist-name {
@@ -29,14 +49,21 @@
 }
 
 .artist-image {
+  flex-shrink: 0;
   position: relative;
-  height: 50px;
-  width: 50px;
+  height: 25px;
+  width: 25px;
   border-radius: 100%;
   overflow: hidden;
   margin-right: 15px;
-  margin-left: 20px;
+  margin-left: 3px;
   box-shadow: 0 1px 3px rgba(0,0,40,.25);
+
+  @media screen and (min-width: 1200px) {
+    height: 50px;
+    width: 50px;
+    margin-left: 20px;
+  }
 
   img {
     min-height: 100%;
@@ -47,8 +74,14 @@
 
 .bar {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
   align-items: center;
+  margin-bottom: 15px;
+
+  @media screen and (min-width: 1200px) {
+    justify-content: space-between;
+    margin-bottom: 0;
+  }
 }
 
 .genres {
@@ -71,12 +104,15 @@
 }
 
 .search {
+  width: 100%;
+
   input {
     display: block;
     background: #f0f4f6;
     border: 1px transparent solid;
     padding: 6px 12px;
     min-width: 300px;
+    width: 100%;
     outline: none;
     /** trick to make the state correspond to debounceTime behaviour: */
     transition-delay: 400ms;
@@ -93,6 +129,10 @@
     font-size: 12px;
     opacity: .6;
     margin-top: 6px;
+  }
+
+  @media screen and (min-width: 1200px) {
+    width: auto;
   }
 }
 

@@ -5,19 +5,16 @@ import {
   Inject,
 } from '@angular/core';
 import { Artist } from '../../core/models/artist';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { combineLatest } from 'rxjs';
 import { SortEvent } from '@clickup/core/components/table/services/table-sort.service';
 import { ArtistService } from '../../core/api/artist.service';
 import { DestroyService } from '@clickup/core/components/table/services/destroy-service.service';
 import {
   debounceTime,
   distinctUntilChanged,
-  filter,
-  skip,
   switchMap,
   takeUntil,
   tap,
-  withLatestFrom,
 } from 'rxjs/operators';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Store } from '@ngrx/store';
@@ -40,6 +37,13 @@ import {
 import { TableComponent } from '../../ui/table/table.component';
 
 const DEBOUNCE_TIME = 400;
+
+const INIT_CONFIG = {
+  page: 0,
+  size: 10,
+  data: undefined,
+  total: 0,
+};
 
 @Component({
   selector: 'app-view-table-server',
@@ -66,12 +70,7 @@ export class ViewTableServerComponent extends TableComponent<Artist> {
     /** Table state reset for the purpose of the demo: */
     store.dispatch(
       init({
-        value: {
-          page: 0,
-          size: 10,
-          data: undefined,
-          total: 0,
-        },
+        value: INIT_CONFIG,
       })
     );
 
@@ -82,13 +81,16 @@ export class ViewTableServerComponent extends TableComponent<Artist> {
       store.select(selectSearchValue),
     ])
       .pipe(
-        takeUntil(destroy$),
-        tap(() => (this.data = undefined)),
+        tap(() => {
+          this.data = undefined;
+          changeDetectorRef.markForCheck();
+        }),
         debounceTime(DEBOUNCE_TIME),
         tap(() => store.dispatch(requestData())),
         switchMap(() => store.select(selectData)),
         distinctUntilChanged(),
-        tap(() => changeDetectorRef.markForCheck())
+        tap(() => changeDetectorRef.markForCheck()),
+        takeUntil(destroy$)
       )
       .subscribe((res) => (this.data = res));
   }
