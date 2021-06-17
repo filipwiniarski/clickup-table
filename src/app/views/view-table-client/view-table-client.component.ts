@@ -5,11 +5,21 @@ import {
   Inject,
 } from '@angular/core';
 import { Artist } from '../../core/models/artist';
-import { FormControl, Validators } from '@angular/forms';
-import { ArtistService } from '../../core/api/artist.service';
 import { DestroyService } from '@clickup/core/components/table/services/destroy-service.service';
-import { takeUntil, tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../store/state';
+import {
+  init,
+  requestData,
+} from '../../store/artists-table/artists-table.actions';
+import {
+  selectData,
+  selectSearchValue,
+} from '../../store/artists-table/artists-table.selectors';
+import { combineLatest } from 'rxjs';
+import { TableComponent } from '../../ui/table/table.component';
 
 @Component({
   selector: 'app-view-table-client',
@@ -18,29 +28,31 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
   providers: [DestroyService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ViewTableClientComponent {
-  columns: ReadonlyArray<keyof Artist> = [
-    'name',
-    'genres',
-    'followers',
-    'popularity',
-  ];
-
-  data: Artist[] | undefined;
-
-  readonly searchControl = new FormControl(null, Validators.minLength(2));
+export class ViewTableClientComponent extends TableComponent<Artist> {
+  columns: Array<keyof Artist> = ['name', 'genres', 'followers', 'popularity'];
 
   constructor(
-    @Inject(ArtistService) passengerService: ArtistService,
     @Inject(DestroyService) destroy$: DestroyService,
-    @Inject(ChangeDetectorRef) changeDetectorRef: ChangeDetectorRef
+    @Inject(ChangeDetectorRef) changeDetectorRef: ChangeDetectorRef,
+    @Inject(Store) store: Store<AppState>
   ) {
-    passengerService
-      .getArtists()
-      .pipe(tap(() => changeDetectorRef.markForCheck()))
-      .subscribe(({ data }) => (this.data = data));
+    super();
 
-    this.searchControl.valueChanges.pipe(takeUntil(destroy$)).subscribe();
+    /** Table state reset for the purpose of the demo: */
+    store.dispatch(init({}));
+
+    store.dispatch(requestData());
+
+    combineLatest([store.select(selectData), store.select(selectSearchValue)])
+      .pipe(
+        map(([data, query]) =>
+          data?.filter(({ name }) =>
+            query ? name.toLowerCase().includes(query?.toLowerCase()) : true
+          )
+        ),
+        tap(() => changeDetectorRef.markForCheck())
+      )
+      .subscribe((data) => (this.data = data));
   }
 
   drop(event: CdkDragDrop<Artist[]>, data: Artist[] | undefined) {

@@ -5,8 +5,12 @@
     <ng-content></ng-content>
     <ng-container *ngIf="sortState">
       <img class="cu-table-cell-sort-icon"
-           [class.rotated]="sortState === 'desc'" src="./assets/arrow.svg"/>
+           [class.rotated]="sortState === 'desc'"
+           src="./assets/arrow.svg"/>
     </ng-container>
   </div>
 </div>
 
+<div (cuTableResizeDrag)="onResizeDrag($event)" class="resize-bar">
+  <div class="resize-bar-line"></div>
+</div>

@@ -1,6 +1,6 @@
 export type PaginationParams = {
-  page?: number;
-  size?: number;
+  page?: number | null;
+  size?: number | null;
   query?: string | null;
   sortBy?: string | null;
   sortDirection?: 'asc' | 'desc' | null;

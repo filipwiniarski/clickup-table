@@ -1,7 +1,7 @@
 <app-introduction></app-introduction>
 
 <div class="bar">
-  <h2>Server Table</h2>
+  <h2>{{ pageTitle$ | async }}</h2>
   <div class="search">
     <input type="text"
            name="search"

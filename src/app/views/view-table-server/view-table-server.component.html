@@ -1,4 +1,5 @@
-<cu-table [columns]="columns" (onSort)="onSortChange($event)">
+<cu-table [columns]="columns"
+          (onSort)="onSortChange($event)">
   <cu-table-head>
     <cu-table-row>
       <cu-table-cell head>Artist</cu-table-cell>
@@ -22,7 +23,9 @@
              class="handle"
              cdkDragHandle/>
         <div class="artist-image">
-          <img height="50" width="50" [src]="item.images[2].url"/>
+          <img height="50"
+               width="50"
+               [src]="item.images[2].url"/>
         </div>
         <div class="artist-name">
           <span class="name">{{ item.name }}</span>
@@ -30,7 +33,9 @@
       </cu-table-cell>
       <cu-table-cell>
         <div class="genres">
-          <app-genre *ngFor="let genre of item.genres">{{ genre }}</app-genre>
+          <app-genre *ngFor="let genre of item.genres">
+            {{ genre }}
+          </app-genre>
         </div>
       </cu-table-cell>
       <cu-table-cell>{{ item.followers.total | number }}</cu-table-cell>
@@ -39,8 +44,8 @@
   </cu-table-body>
 </cu-table>
 
-<cu-table-pagination [total]="total"
-                     [page]="pageChange$ | async"
+<cu-table-pagination [total]="total$ | async"
+                     [page]="page$ | async"
                      (sizeChange)="onSizeChange($event)"
                      (pageChange)="onPageChange($event)">
 </cu-table-pagination>

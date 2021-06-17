@@ -24,13 +24,13 @@ export class TablePaginationComponent {
   className = 'cu-table-pagination';
 
   @Input()
-  total = 0;
+  total: number | null = 0;
 
   @Input()
   sizeOptions: number[] = [5, 10, 25, 50, 100];
 
   @Input()
-  page = 0;
+  page: number | null = 0;
 
   @Output()
   readonly pageChange = new EventEmitter<number>();
@@ -44,10 +44,16 @@ export class TablePaginationComponent {
   readonly sizeControl = new FormControl(this.size);
 
   get totalPages(): number {
+    if (this.total === null) {
+      return 0;
+    }
     return Math.ceil(this.total / this.sizeControl.value);
   }
 
   get pageRange(): number[] {
+    if (this.page === null) {
+      return [];
+    }
     let length = 5;
     if (length > this.totalPages) length = this.totalPages;
     let start = this.page + 1 - Math.floor(length / 2);
@@ -57,7 +63,7 @@ export class TablePaginationComponent {
   }
 
   get itemsRange(): string | null {
-    if (!this.total) {
+    if (!this.total || this.page === null) {
       return '-';
     }
     const size = Number(this.sizeControl.value);
@@ -87,7 +93,7 @@ export class TablePaginationComponent {
     const sizeNumber = Number(size);
     this.size = sizeNumber;
     this.sizeChange.emit(sizeNumber);
-    if (this.page >= this.totalPages) {
+    if (this.page !== null && this.page >= this.totalPages) {
       this.page = this.totalPages - 1;
       this.changePage(0);
     }

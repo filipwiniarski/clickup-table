@@ -2,15 +2,19 @@
 ::ng-deep .cu-table-cell {
   &:nth-child(1) {
     flex: 2;
+    min-width: 350px;
   }
   &:nth-child(2) {
     flex: 3;
+    min-width: 450px;
   }
   &:nth-child(3) {
     flex: 1;
+    min-width: 120px;
   }
   &:nth-child(4) {
     flex: 1;
+    min-width: 120px;
   }
 }
 

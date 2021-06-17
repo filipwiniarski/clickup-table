@@ -10,7 +10,7 @@
   <div class="cu-table-pagination-range" *ngIf="itemsRange as range">
     <span class="cu-table-pagination-label">Showing items</span> {{ range }}
   </div>
-  <div class="cu-table-pagination-pages" *ngIf="pageRange?.length">
+  <div class="cu-table-pagination-pages" *ngIf="pageRange?.length && page !== null">
     <span *ngFor="let element of pageRange"
           [class.active]="element === page + 1"
           (click)="changePage(element - 1)">

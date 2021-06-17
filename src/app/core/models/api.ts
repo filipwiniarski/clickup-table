@@ -1,4 +1,4 @@
 export interface ListFetch<T> {
-  data: T[];
+  data: T[] | undefined;
   total: number;
 }

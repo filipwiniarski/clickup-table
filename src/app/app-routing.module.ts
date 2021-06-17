@@ -12,10 +12,16 @@ const routes: Routes = [
   },
   {
     path: 'server',
+    data: {
+      title: 'Server Driven Table',
+    },
     component: ViewTableServerComponent,
   },
   {
     path: 'client',
+    data: {
+      title: 'Client Table',
+    },
     component: ViewTableClientComponent,
   },
 ];

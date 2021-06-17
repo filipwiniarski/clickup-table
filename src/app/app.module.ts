@@ -10,8 +10,14 @@ import { GenreModule } from './ui/genre/genre.module';
 import { IntroductionComponent } from './ui/introduction/introduction.component';
 import { ViewTableServerComponent } from './views/view-table-server/view-table-server.component';
 import { ViewTableClientComponent } from './views/view-table-client/view-table-client.component';
-import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
+import { StoreModule } from '@ngrx/store';
+import { artistsTableReducer } from './store/artists-table/artists-table.reducer';
+import { environment } from '../environments/environment';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
+import { ArtistsTableEffects } from './store/artists-table/artists-table.effects';
+import { APP_PROVIDERS } from './app.providers';
 
 @NgModule({
   declarations: [
@@ -28,8 +34,19 @@ import { AppRoutingModule } from './app-routing.module';
     HttpClientModule,
     ReactiveFormsModule,
     GenreModule,
+    StoreModule.forRoot(
+      {
+        artistsTable: artistsTableReducer,
+      },
+      {}
+    ),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
+    EffectsModule.forRoot([ArtistsTableEffects]),
   ],
-  providers: [],
+  providers: [APP_PROVIDERS],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

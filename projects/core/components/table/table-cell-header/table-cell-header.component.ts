@@ -54,6 +54,12 @@ export class TableCellHeaderComponent<T> extends TableCellComponent<T> {
   @HostBinding('style.width.px')
   width: number | null = null;
 
+  @HostBinding('style.flex')
+  flex: string | number | null = null;
+
+  @HostBinding('style.flexGrow')
+  flexGrow: string | number | null = null;
+
   sortState: SortMode = null;
 
   constructor(
@@ -94,5 +100,17 @@ export class TableCellHeaderComponent<T> extends TableCellComponent<T> {
       mode: this.sortState ? (this.sortState === 'asc' ? 'desc' : null) : 'asc',
     } as SortEvent<keyof T>;
     this.tableSortService.sort$.next(sortEvent);
+  }
+
+  onResizeDrag(width: number) {
+    this.setWidth(width);
+    this.table.syncColumnWidths();
+  }
+
+  setWidth(width?: number) {
+    this.flex = 'auto';
+    this.flexGrow = 0;
+    this.width =
+      width ?? this.elementRef.nativeElement.getBoundingClientRect().width;
   }
 }
