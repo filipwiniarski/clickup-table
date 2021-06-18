@@ -60,4 +60,8 @@ export class ViewTableClientComponent extends TableComponent<Artist> {
       moveItemInArray(data, event.previousIndex, event.currentIndex);
     }
   }
+
+  sortFollowers(a: { total: number }, b: { total: number }): number {
+    return a.total - b.total;
+  }
 }

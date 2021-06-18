@@ -49,7 +49,7 @@ export class TableCellHeaderComponent<T> extends TableCellComponent<T> {
   _disableSort = false;
 
   @Input()
-  sortFn: ((a: T, b: T) => boolean) | undefined;
+  sortFn: ((a: T, b: T) => number) | undefined;
 
   @HostBinding('style.width.px')
   width: number | null = null;
@@ -98,6 +98,7 @@ export class TableCellHeaderComponent<T> extends TableCellComponent<T> {
     const sortEvent = {
       column: this.column,
       mode: this.sortState ? (this.sortState === 'asc' ? 'desc' : null) : 'asc',
+      sortFn: this.sortFn,
     } as SortEvent<keyof T>;
     this.tableSortService.sort$.next(sortEvent);
   }

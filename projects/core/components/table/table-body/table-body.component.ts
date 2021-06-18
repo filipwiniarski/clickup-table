@@ -96,10 +96,9 @@ export class TableBodyComponent<T> implements OnChanges {
       .sort((a: Record<keyof T, any>, b: Record<keyof T, any>) => {
         const aValue = a[sortEvent.column!];
         const bValue = b[sortEvent.column!];
-        const sortMethod = sortMethodMap.get(typeof aValue) as (
-          a: any,
-          b: any
-        ) => number;
+        const sortMethod = sortEvent.sortFn
+          ? sortEvent.sortFn
+          : (sortMethodMap.get(typeof aValue) as (a: any, b: any) => number);
         if (!sortMethod) {
           return 1;
         }

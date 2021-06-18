@@ -3,7 +3,7 @@
     <cu-table-row>
       <cu-table-cell head>Artist</cu-table-cell>
       <cu-table-cell head disableSort>Genres</cu-table-cell>
-      <cu-table-cell head>Followers</cu-table-cell>
+      <cu-table-cell head [sortFn]="sortFollowers">Followers</cu-table-cell>
       <cu-table-cell head>Popularity</cu-table-cell>
     </cu-table-row>
   </cu-table-head>

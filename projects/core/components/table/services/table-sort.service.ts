@@ -19,6 +19,7 @@ export type SortMode = 'asc' | 'desc' | null;
 export type SortEvent<T> = {
   column: T | null;
   mode: SortMode;
+  sortFn?: ((a: any, b: any) => number) | undefined;
 };
 
 @Injectable()
