@@ -1,8 +1,8 @@
 # ClickUp Mini Project
 
-## Checklist
-
 **Total time - around 32 hours.**
+
+## Checklist
 
 - [x] Table
   > Since most opensource tables are table layouts I decided to go with flex, which allows for more customization with a slight trade off performance.
@@ -40,6 +40,8 @@ To run project locally run:
 
 This will run project using Netlify Dev feature serving functions alongside Angular project.
 Otherwise, you will not have a running API to power project with data.
+
+After you run above command you can access Netlify Dev server on https://localhost:8888.
 
 ## Additional features
 
