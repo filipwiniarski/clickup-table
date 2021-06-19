@@ -1,27 +1,59 @@
-# ClickupTable
+# ClickUp Mini Project
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.3.
+## Checklist
 
-## Development server
+**Total time - around 32 hours.**
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+- [x] Table
+  > Since most opensource tables are table layouts I decided to go with flex, which allows for more customization with a slight trade off performance.
+- [x] Sorting
+- [x] Searching
+- [x] Pagination
+- [ ] Row drag and drop
+  > I noticed column drag and drop pretty late during my development. 
+  > Currently table rows are iterating in horizontal fashion therefore drag 
+  > and drop animation would have to be really tricky. 
+  > Definitely doable but just that is on its own a huge effort - I am talking fully animated column drag and drop just as I did with rows. 
+  > Binding body cells to a header drag and drop animation would be really tricky. 
+  > I would have to dig way more on that to end up with a proper, optimum solution. 
+- [x] NgRx integration
+  > I did not implement NgRx inside table module since I wanted it to be as reusable as possible. Using NgRx would force different teams to include NgRx in their codebase. 
+  > User interaction with the table and data fetch has been directly implemented inside the application.
+- [x] Generic table
+  > I also prepared a core package with tree-shakable configuration ready to be uploaded under a private NPM organization.
+- [x] API with paging, sorting and searching
+  > I was not sure if I am expected to create a proper backend API. I did a trick and created lambda function using Netlify functions that mock this behaviour.
+- [x] Styling
+  > I did some styling, however those styles could be brought to another level to allow developers for customization using CSS custom properties.
+- [x] CI & CD
+  > Netlify ❤️
+- [x] Column resize
+- [x] Performance optimizations
+- [x] RxJs
+- [x] Pipes, directives and more
 
-## Code scaffolding
+## Local Development
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+To run project locally run:
 
-## Build
+`yarn install && yarn dev`
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+This will run project using Netlify Dev feature serving functions alongside Angular project.
+Otherwise, you will not have a running API to power project with data.
 
-## Running unit tests
+## Additional features
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- Tree-shakable library
+- NPM ready library
+- Fully typed generic table
+- Backend search
+- Backend sort
+- Both client and server implementations
+- Skeleton loading animation (placeholders)
+- Custom sort functions  
+- Option to disable sort for a specific column
+- Responsivity from a large mobile screen to a desktop
+- Composite layer animations only
+- Disabled zone patch on animation request frame
+- OnPush everywhere
+- TypeScript strict mode

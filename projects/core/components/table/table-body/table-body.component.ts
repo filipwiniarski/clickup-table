@@ -3,14 +3,12 @@ import {
   ChangeDetectorRef,
   Component,
   ContentChild,
-  EventEmitter,
   forwardRef,
   HostBinding,
   Inject,
   Input,
   OnChanges,
   Optional,
-  Output,
   SimpleChanges,
 } from '@angular/core';
 import { TableComponent } from '../table.component';
@@ -20,10 +18,9 @@ import {
   sortMethodMap,
   TableSortService,
 } from '../services/table-sort.service';
-import { finalize, takeUntil, tap } from 'rxjs/operators';
+import { takeUntil, tap } from 'rxjs/operators';
 import { DestroyService } from '../services/destroy-service.service';
-import { CdkDragDrop } from '@angular/cdk/drag-drop/drag-events';
-import { CdkDrag, CdkDropList, DragDropRegistry } from '@angular/cdk/drag-drop';
+import { CdkDropList } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'cu-table-body',
