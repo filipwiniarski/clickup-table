@@ -2,6 +2,8 @@
 
 **Total time - around 32 hours.**
 
+https://clickup-miniproject-filipwiniarski.netlify.app
+
 ## Checklist
 
 - [x] Table
