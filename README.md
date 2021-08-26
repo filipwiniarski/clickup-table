@@ -1,6 +1,4 @@
-# ClickUp Mini Project
-
-**Total time - around 32 hours.**
+# Table Component made for ClickUp™
 
 https://clickup-miniproject-filipwiniarski.netlify.app
 
